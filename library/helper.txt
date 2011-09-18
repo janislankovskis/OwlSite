@@ -1,0 +1,94 @@
+ObjectModule possible field types & examples
+---------------------------------------------------
+text
+
+    'fieldName' => array(
+			'type' => 'text',
+            'required' =>false,
+            'readonly'=> false,
+            'notInList' => true,
+		),
+
+---
+
+checkbox
+
+    'fieldName' => array(
+			'type' => 'checkbox',
+		),
+
+---
+
+select
+    
+    'fieldName' => array(
+			'type' => 'select',
+            'list'  => array(
+                'key'   => 'value',
+            ),
+            'addBlank' =>false,
+            'required' =>false,
+		),
+
+---
+
+rewrite
+		
+	'fieldName' => array(	
+			'type' => 'rewrite',
+			'required'	=> true,
+			'source' => 'sourceFieldName',
+	),	
+	
+---
+
+objectList
+
+    'fieldName'  => array(
+            'type'  => 'objectList',
+            'objectName' => 'ObjectName',
+            'value' => 'valuefield',
+            'key'   => 'keyfield',
+            'addBlank'  => false,
+    ),
+
+---
+
+objectRead
+
+    'fieldName'    =>array(
+            'type'  => 'objectRead',
+            'objectName'    => 'ObjectName',
+            'key'   => 'keyfield',
+            'value'    => 'valuefield',
+        ),
+
+---
+
+dateTime
+
+    'fieldName'    =>array(
+            'type'  => 'datetime',
+        ),
+	
+
+---
+
+date
+
+    'fieldName'    =>array(
+            'type'  => 'date',
+        ),
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+

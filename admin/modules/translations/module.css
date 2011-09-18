@@ -1,0 +1,59 @@
+.field input
+{
+	width: 120px ;
+	font-size: 10px;
+}
+
+.title
+{
+	padding: 0 0 20px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.groups
+{
+	margin-right: 40px;
+}
+
+.group .item
+{
+	padding: 0 0 5px 0;
+	border-bottom: solid 1px #EEEEEE;
+	margin-bottom: 5px;
+}
+
+
+.group .item .name
+{
+	width: 130px;
+	padding: 5px;
+}
+
+.group .item .name a
+{
+	text-decoration: none;
+	color: #666666;
+	display:  block;
+}
+
+.group .item .name a:hover
+{
+	color: #000000;
+}
+
+h1
+{
+	margin-bottom: 30px;
+}
+
+.translations h2
+{
+	margin-bottom: 20px;
+}
+
+
+.translations .item .field, .addForm .field
+{
+	padding-right: 10px;
+}

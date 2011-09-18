@@ -1,0 +1,48 @@
+[datums, npk. fails, kas mainīts /n apraksts]
+
+
+2011.02.28
+
+1. class.DefaultAdminModule
+    pielikts, lai ielādē $module->openedObject
+    
+2. CoreFunctions
+    pievienota f-ja generateFileName, no class.ObjectModule
+    //TODO: pielabot class.ObjectModule, lai izmanto no CoreFunctions
+
+3. CoreFunctions
+    pievienota isPositiveInt f-ja
+
+
+2011.03.01
+
+1. html5.tpl
+    pielikts pielagots html5 boilerplate + piefiksots pats tpl -> 3rdpart
+    pielikts DD_belatedPNG -> 3rdpart
+    pielikts moderinzr
+
+2. pielikts robots.txt, crossdomain.xml
+
+
+2011.03.04
+
+1. class.PublicModule
+    pamainita translations logika. palabota
+2. smarty - function.tra
+    pielabots, ja ir tuksa vertiba atdod tra:group/item
+
+
+2011.03.07
+
+1. pielikts rewrite tool fields    
+2. izveidots Ropository @ Github.com -> https://github.com/owlsite/OWLSite
+
+
+------------------------------------
+0.9 milesotone TODO:
+
+1. ajax content tree
+2. inline media upload manager via tinyMCE
+3. better UI //this stays here forever
+4. content tree functions - move, copy
+5. url unique check for tree & objects

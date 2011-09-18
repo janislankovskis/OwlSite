@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template name="Page">
+<field title="Page title" name="title" type="text"></field>
+<field title="Page text" name="text"  type="richtext"></field>
+</template>

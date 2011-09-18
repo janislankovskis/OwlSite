@@ -1,0 +1,244 @@
+form .error
+{
+	background-color: #FFEEEE;
+	border: solid 1px #FF9999; 
+	-webkit-border-radius: 5px;
+	padding: 4px 0 0 0;
+	margin: 0 0 3px 0; 
+}
+
+.form a
+{
+	padding: 1px;
+	color: #C9C9C9;	
+}
+
+.objectTable tr:hover
+{
+    color: #222;
+}
+
+.objectTable tr:hover a, .paginatorContainer:hover a
+{
+    color: #2C80B5;
+}
+
+.objectTable tr a:hover
+{
+	background-color: #2C80B5;
+	color: #FFF;
+}   
+
+.objectTable thead, .objectTable thead a, body .objectTable thead:hover a, .paginatorContainer a:hover
+{
+	background-color: #2C80B5;
+	background-color: #679EC1;
+	color: #FFF;
+}
+
+.zebra1
+{
+	background-color: #F5F5F5;
+}
+
+.toolbar
+{
+	padding: 10px 0;
+}
+
+.form
+{
+	padding: 10px 0 60px;
+	color: #9d9d9d;
+	font-size: 81.25%;
+}
+
+
+input, textarea, fieldset
+{
+	font-family: verdana, tahoma, sans-serif;
+	background-color: #FFFFFF;
+	border: solid 1px #DFDFDF;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 3px;
+	font-size: 12px;
+	width: 180px;
+}
+
+form .smallinfo
+{
+	color: #999999;
+	font-size: 11px;
+	padding: 10px 0;
+}
+
+form .line input
+{
+	width: 320px;
+}
+
+form .checkbox input 
+{
+	width: auto;
+}
+
+textarea
+{
+	height: 90px;
+	width: 400px;
+}
+
+button
+{
+	border: solid 1px #999999;
+	color: #333333;
+	cursor: pointer;
+	padding:3px 5px;
+	background: #FAFAFA;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-opera-border-radius: 3px;
+	border-radius: 3px;
+}
+
+button:hover
+{
+	border: solid 1px #999999;
+	color: #333333;
+	cursor: pointer;
+	background-color: #EEEEFA;
+}
+
+.auto
+{
+	width: auto;
+}
+
+.line .label
+{
+	width: 110px;
+	padding-top: 4px;
+	padding-left: 10px;
+}
+
+fieldset .line .label
+{
+	padding-left: 0px;
+}
+
+select
+{
+	width: 200px;
+}
+
+.line
+{
+	margin: 0 0 4px;
+}
+
+fieldset
+{
+	width: auto;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.submit
+{
+	margin: 10px 0 0 0;
+	padding: 5px 0 0 0;
+	border-top: 1px solid #999999;
+}
+
+.readonly
+{
+	color: #999999;
+	font-size: 11px;
+	font-style: italic;
+	padding-top: 5px;
+}
+
+.arrayfields
+{	
+	padding: 10px;
+	margin: 10px 0;
+	background-color: #FAFBff;
+}
+
+.arrayfields:hover
+{
+	background-color: #f3f3ff;
+}
+
+._blankGroup
+{
+	display: none;
+}
+
+.moveDelete
+{
+	font-size: 10px;
+	padding: 0 5px 5px;
+	margin-bottom: 25px;
+	border-bottom: solid 1px #eee;
+}
+
+.moveDelete a, .moveDelete a:hover
+{
+	text-decoration: none;
+	color: #333;
+	background: transparent;
+}
+
+.moveDelete .move
+{
+	background: url(../images/move.png) no-repeat left center transparent;
+	padding: 3px 3px 3px 23px;
+	cursor: move;
+}
+
+.moveDelete .remove
+{
+	background: url(../images/remove.png) no-repeat right center transparent;
+	padding: 3px 23px 3px 3px
+}
+
+.arrayFieldBlock .addField
+{
+	float: left;
+	background: url(../images/add.png) no-repeat left center transparent;
+	padding: 10px;
+	padding-left: 35px;
+}
+
+.arrayFieldBlock .addField:hover
+{
+	background-color: transparent;
+	color: #333;
+}
+
+.paginatorContainer
+{
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    
+    background: -moz-linear-gradient(top, rgba(255,255,255,0.44) 0%, rgba(255,255,255,0.54) 14%, rgba(255,255,255,1) 33%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.44)), color-stop(14%,rgba(255,255,255,0.54)), color-stop(33%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0.44) 0%,rgba(255,255,255,0.54) 14%,rgba(255,255,255,1) 33%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,0.44) 0%,rgba(255,255,255,0.54) 14%,rgba(255,255,255,1) 33%,rgba(255,255,255,1) 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,0.44) 0%,rgba(255,255,255,0.54) 14%,rgba(255,255,255,1) 33%,rgba(255,255,255,1) 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#70ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, rgba(255,255,255,0.44) 0%,rgba(255,255,255,0.54) 14%,rgba(255,255,255,1) 33%,rgba(255,255,255,1) 100%); /* W3C */
+
+}
+
+.paginatorContainer:hover
+{
+    background-color: #fff;
+}

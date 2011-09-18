@@ -1,0 +1,36 @@
+html, body, form, ul, li, ol, p, h1, h2, h3, h4
+{
+	margin: 0;
+	padding: 0;
+} 
+
+.inline
+{
+	display: inline;
+}
+
+.block
+{
+	display: block;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.left
+{
+	float: left;
+}
+
+.clear
+{
+	clear: both;
+}
+
+
+a img
+{
+	border: 0;
+}
