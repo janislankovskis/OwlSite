@@ -142,7 +142,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` VALUES(1, 1, 'jlankovskis@gmail.com', 'e13f022cfe1845c5b95af7ee45bf9cbf8e35e6a1', 'Recommended', 1);
+INSERT INTO `users` VALUES(1, 1, 'youremail@host.com', SHA1('yourpassword'), 'content', 1);
 
 -- --------------------------------------------------------
 
