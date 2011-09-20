@@ -389,4 +389,75 @@ class PublicModule
 }
 
 
+?>$this->cssString = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->cssString);
+    		/* remove tabs, spaces, newlines, etc. */
+    		$this->cssString = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $this->cssString);
+		
+			file_put_contents($full_path, $this->cssString);
+		}
+		$this->css[] = WWW . 'cache/css/' .$name . '.css';
+		
+		return $this->css;
+	}
+	
+	public function GetJs()
+	{
+		return $this->js;
+		
+		$name = sha1($this->jsStringName);
+		$full_path = CACHE_PATH . '/js/' . $name . '.js';
+		if(!file_exists($full_path))
+		{
+		
+		  //  $this->cssString = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->jsString);
+    
+    	  // $this->cssString = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $this->jsString);
+		
+			file_put_contents($full_path, $this->cssString);
+		}
+		$this->js[] = WWW . 'cache/js/' .$name . '.js';
+		
+		return $this->js;
+	}
+
+	
+	
+	public function getTranslations()
+	{
+        if(empty($this->language))
+		{
+			$config = _siteConfig::getConfig();
+			if(isset($config['languages'][0]))
+			{
+				$this->language = $config['languages'][0];
+			}
+		}
+		
+		global $TRA;
+		$TRA = array('site'=>array('siteTitle' => '404 - Not Found'));
+		
+		
+		if(empty($this->language))
+		{
+			return array();
+		}
+
+		$tra = _translation::getTranslations(array('loadgroup'=>true));
+		
+		
+		foreach($tra as $item)
+		{    
+		      if(isset($item['values'][$this->language]))
+		      {
+			       $TRA[$item['groupName']][$item['ident']] = $item['values'][$this->language];
+			  }
+		}
+		
+		return true;
+	}
+	
+
+}
+
+
 ?>

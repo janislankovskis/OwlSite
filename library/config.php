@@ -62,4 +62,8 @@ else
 
 session_start();
 
+?>andler(ErrorHandler);
+
+session_start();
+
 ?>

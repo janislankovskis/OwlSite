@@ -177,4 +177,19 @@ class O_Image
 }
 
 
+?>ge($params['width'], $params['height']);
+		}
+			
+		$img->writeImage($cache_path . $fileName);
+		
+		return true;
+	
+	}
+	
+	
+
+
+}
+
+
 ?>

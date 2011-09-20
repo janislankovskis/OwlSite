@@ -39,4 +39,7 @@
 		  <a href="{url add="page=`$pages.current+1`"}" title="page {$pages.current+1}">&raquo;</a>
     {/if}
     </div>
+{/if}o;</a>
+    {/if}
+    </div>
 {/if}

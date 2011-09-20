@@ -907,4 +907,34 @@ class ObjectModule
 
 
 
+?>unction getAttachment($id = null)
+	{
+		if(!is_numeric($id) && $id<=0)
+		{
+			return false;
+		}
+		
+		$out = array();
+		$q = 'SELECT * FROM attachments WHERE id = ' . $id . ' LIMIT 1';
+		$r = returnFirstRow($q);
+
+		if(!$r)
+		{
+			return false;
+		}
+		
+		$out['name'] = $r['file'];
+		$out['url'] = BASE . 'content/' . strtolower(get_class($this)) . '/' . $r['file'];
+		$out['fullUrl'] = WWW . 'content/' . strtolower(get_class($this)) . '/' . $r['file'];
+		$out['dir'] = strtolower(get_class($this));   
+		
+		return $out;
+		
+	}
+		
+}
+
+
+
+
 ?>

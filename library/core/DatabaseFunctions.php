@@ -458,4 +458,17 @@ function setCachingOn()
 }
 
 
+?>al $conf;
+    $conf['CACHEQUERIES'] = false;
+    return;
+}
+
+function setCachingOn()
+{
+    global $conf;
+    $conf['CACHEQUERIES'] = true;
+    return;
+}
+
+
 ?>
