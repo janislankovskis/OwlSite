@@ -101,7 +101,14 @@ class O_Image
 	    	}
 	    	
 			$img = new Imagick($cache_path . $fileName);
-			$tag = '<img src="' . $imageurl . '" alt="'.$alt.'" width="'.$geo['width'].'" height="'.$geo['height'].'" />';
+			$geo = $img->getImageGeometry();				
+			
+			if(!isset($addClass))
+			{
+				$addClass = '';
+			}
+			
+			$tag = '<img class="' . $addClass . '" src="' . $imageurl . '" alt="'.$alt.'" width="'.$geo['width'].'" height="'.$geo['height'].'" />';
 			return $tag;
 		}
 		else
@@ -163,21 +170,6 @@ class O_Image
 		{
 			//crop image
 			$img->cropThumbnailImage($params['width'], $params['height']);
-		}
-			
-		$img->writeImage($cache_path . $fileName);
-		
-		return true;
-	
-	}
-	
-	
-
-
-}
-
-
-?>ge($params['width'], $params['height']);
 		}
 			
 		$img->writeImage($cache_path . $fileName);

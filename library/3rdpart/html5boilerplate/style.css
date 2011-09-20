@@ -11,12 +11,14 @@ html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-
 body { margin: 0; font-size: 13px; line-height: 1.231; }
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::-moz-selection { background: #57a1fe; color: #fff; text-shadow: none; }
+::selection { background: #57a1fe; color: #fff; text-shadow: none; }
 
+/*
 a { color: #00e; }
 a:visited { color: #551a8b; }
 a:hover { color: #06e; }
+*/
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 
@@ -61,26 +63,6 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
-
-/* ==|== primary styles =====================================================
-   Author: 
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==|== non-semantic helper classes ======================================== */
 .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .ir br { display: none; }
@@ -91,19 +73,6 @@ td { vertical-align: top; }
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-
-
-/* ==|== media queries ====================================================== */
-
-@media only screen and (min-width: 480px) {
-
-
-}
-
-@media only screen and (min-width: 768px) {
-
-}
-
 
 
 /* ==|== print styles ======================================================= */

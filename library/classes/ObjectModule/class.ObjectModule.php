@@ -21,7 +21,7 @@ class ObjectModule
 	
 	private $joinLetters = array('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p');
 	
-	/* CONSTRUCT */
+	/* MAGIC FUNCTIONS */
 	public function __construct($id = null)
 	{
 		if(!$id)
@@ -37,6 +37,33 @@ class ObjectModule
 			$variables = call_user_func(array($this, $this->presave), $variables);
 		}
 		
+	}
+	
+	public function __get($key)
+	{
+		if(!empty($this->$key) && !is_null($this->$key))
+		{
+			return $this->$key;
+		}
+			
+		//get related property name 
+		if(substr($key, -6) == 'Object')
+		{
+			$name = substr($key, 0, -6);
+			
+			if(!isset($this->fields[$name]))
+			{
+				return false;
+			}
+			if($this->fields[$name]['type'] == 'objectList' || $this->fields[$name]['type'] == 'objectRead')
+			{	
+				$obname = $this->fields[$name]['objectName'];
+				return $obname::LoadObject($this->$name);
+			}		
+			
+		}
+		
+		return false;
 	}
 	
 	
@@ -878,36 +905,6 @@ class ObjectModule
 	
 	
 	public function getAttachment($id = null)
-	{
-		if(!is_numeric($id) && $id<=0)
-		{
-			return false;
-		}
-		
-		$out = array();
-		$q = 'SELECT * FROM attachments WHERE id = ' . $id . ' LIMIT 1';
-		$r = returnFirstRow($q);
-
-		if(!$r)
-		{
-			return false;
-		}
-		
-		$out['name'] = $r['file'];
-		$out['url'] = BASE . 'content/' . strtolower(get_class($this)) . '/' . $r['file'];
-		$out['fullUrl'] = WWW . 'content/' . strtolower(get_class($this)) . '/' . $r['file'];
-		$out['dir'] = strtolower(get_class($this));   
-		
-		return $out;
-		
-	}
-		
-}
-
-
-
-
-?>unction getAttachment($id = null)
 	{
 		if(!is_numeric($id) && $id<=0)
 		{

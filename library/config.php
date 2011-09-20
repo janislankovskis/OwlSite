@@ -40,6 +40,7 @@ $conf['cms_session_name'] = 'cmsuser';
 define('BASE', '/' . $conf['DIR']);
 define('WWW', $conf['WWW']);
 define('PATH', $conf['PATH']);
+define('CACHE_PATH', $conf['CACHE_PATH']);
 define('ADMIN_PATH', $conf['ADMIN_PATH']);
 define('ADMIN_BASE', $project['admin']);
 
@@ -59,10 +60,6 @@ else
 }
 
 //set_error_handler(ErrorHandler);
-
-session_start();
-
-?>andler(ErrorHandler);
 
 session_start();
 

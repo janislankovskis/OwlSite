@@ -10,7 +10,7 @@ class PublicModule
 	public $contentLoaded = false;
 	
 	public $html;
-	private $css = array(), $js = array();
+	private $css = array(), $js = array(), $cssString, $cssStringName, $jsString, $jsStringName;
 	
 	/* magic functions */
 	
@@ -339,57 +339,46 @@ class PublicModule
 	
 	public function _add_css($file)
 	{
+		
 		if(substr($file, 0, 4)!='http' && file_exists(PATH . $file))
 		{
-			$file = $file . '?' . date('YmdHis', filemtime(PATH . $file));
+			$this->cssString .= file_get_contents(PATH . $file);
+			$file = $file . '?' . date('YmdHis', filemtime(PATH . $file));		
+			$this->cssStringName .= $file;
 		}
-		$this->css[] = $file;
+		else
+		{
+			$this->css[] = $file;
+		}
+		
+//		$this->css[] = $file;
 	}
 	
 	public function _add_js($file)
 	{
+		/*
+		if(substr($file, 0, 4)!='http' && file_exists(PATH . $file))
+		{
+			$this->jsString .= file_get_contents(PATH . $file);
+			$file = $file . '?' . date('YmdHis', filemtime(PATH . $file));		
+			$this->jsStringName .= $file;
+		}
+		else
+		{
+			$this->js[] = $file;
+		}
+	*/
 		$this->js[] = $file;
 	}
 	
-	public function getTranslations()
+	public function GetCss()
 	{
-        if(empty($this->language))
+		$name = sha1($this->cssStringName);
+		$full_path = CACHE_PATH . '/css/' . $name . '.css';
+		if(!file_exists($full_path))
 		{
-			$config = _siteConfig::getConfig();
-			if(isset($config['languages'][0]))
-			{
-				$this->language = $config['languages'][0];
-			}
-		}
-		
-		global $TRA;
-		$TRA = array('site'=>array('siteTitle' => '404 - Not Found'));
-		
-		
-		if(empty($this->language))
-		{
-			return array();
-		}
-
-		$tra = _translation::getTranslations(array('loadgroup'=>true));
-		
-		
-		foreach($tra as $item)
-		{    
-		      if(isset($item['values'][$this->language]))
-		      {
-			       $TRA[$item['groupName']][$item['ident']] = $item['values'][$this->language];
-			  }
-		}
-		
-		return true;
-	}
-	
-
-}
-
-
-?>$this->cssString = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->cssString);
+			/* remove comments */
+		    $this->cssString = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->cssString);
     		/* remove tabs, spaces, newlines, etc. */
     		$this->cssString = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $this->cssString);
 		

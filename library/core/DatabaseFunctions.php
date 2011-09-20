@@ -13,6 +13,7 @@ function  dbExecute($query=null, $class='')
     {
         $query = getQuery($query);
     }
+    $time1 = microtime(true); 
     /*
     if($conf['CACHEQUERIES'])
     { 
@@ -42,11 +43,13 @@ function  dbExecute($query=null, $class='')
     	$cache->executedQueries[sha1($query)] = array(
     		'query' => $query,
     		'time' => $time2-$time1,
-    		'result' => $list,
+    		/* 'result' => $list, */
     	);
     	
-    	$cache->totTime  = $cache->totTime + ($time2-$time1);
-    	$cache->queriesCount++;
+    	$cache->results[sha1($query)] = $list;
+    	
+    	$cache->executedQueries['____totTime']  = $cache->executedQueries['____totTime'] + ($time2-$time1);
+    	$cache->executedQueries['____queriesCount']++;
     }
     
     
@@ -446,19 +449,6 @@ function dbGetId($table)
 function setCachingOff()
 {
     global $conf;
-    $conf['CACHEQUERIES'] = false;
-    return;
-}
-
-function setCachingOn()
-{
-    global $conf;
-    $conf['CACHEQUERIES'] = true;
-    return;
-}
-
-
-?>al $conf;
     $conf['CACHEQUERIES'] = false;
     return;
 }

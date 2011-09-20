@@ -18,7 +18,7 @@
 	{section name=pages loop=$pages.total}
 		{assign var=iteration value=$smarty.section.pages.index+1}
 		{if $iteration == $pages.current}
-			{$iteration}
+			<span class="currentPage">{$iteration}</span>
             {assign var=can_skip value=true}
 		{elseif   $iteration == '1'|| 
 		          $iteration==$pages.total || 
@@ -37,9 +37,6 @@
 	{/section}
 	{if $pages.current!=$pages.total}
 		  <a href="{url add="page=`$pages.current+1`"}" title="page {$pages.current+1}">&raquo;</a>
-    {/if}
-    </div>
-{/if}o;</a>
     {/if}
     </div>
 {/if}

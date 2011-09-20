@@ -19,9 +19,7 @@
 {if FAVICON}
 <link rel="shortcut icon" type="image/x-icon" href="{$smarty.const.BASE}favicon.ico">
 {/if}
-{*<meta http-equiv="Content-Script-Type" content="type" />*}
-<link rel="stylesheet" href="{$smarty.const.BASE}library/3rdpart/html5boilerplate/style.css">
-{foreach from=$module->css item=css}
+{foreach from=$module->GetCss() item=css}
 <link rel="stylesheet" href="{$css}" />
 {/foreach}
 <script src="{$smarty.const.BASE}library/3rdpart/modernizr/modernizr.custom.05612.js"></script>
@@ -34,7 +32,7 @@
 {/if}
 {$module->html}
 <script src="{$smarty.const.BASE}library/3rdpart/html5boilerplate/script.js"></script>
-{foreach from=$module->js item=js}
+{foreach from=$module->GetJs() item=js}
 <script src="{$js}"></script>
 {/foreach}
 <!--[if lt IE 7 ]>
