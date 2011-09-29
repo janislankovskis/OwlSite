@@ -154,6 +154,7 @@ class PublicModule
 			}
 		}
 		
+		
 		if($this->openedObject)
 		{
 			$this->openedObject->loadValues();

@@ -472,7 +472,7 @@ if(!sizeof($_POST) || is_string($this->data))
 	{
 		if(!is_array($this->data))
 		{
-			return;		
+			$this->data = @unserialize($this->data);	
 		}
 		
 		$out = array();
@@ -577,8 +577,6 @@ if(!sizeof($_POST) || is_string($this->data))
 	
 	public function postSave()
 	{
-//	       debug($this);
-	   
 		$this->getUrl(true);
 		$this->updateChildrenUrls($this->id);
 		

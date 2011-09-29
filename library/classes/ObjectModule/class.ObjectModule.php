@@ -125,7 +125,7 @@ class ObjectModule
 		return;
 	}
 	
-	private function upload($data)
+	public function upload($data)
 	{
 
 		$folder = strtolower(get_class($this));
@@ -211,7 +211,7 @@ class ObjectModule
 		
 	}
 	
-	private function uploadFile($fileData)
+	public function uploadFile($fileData)
 	{
 		///TODO: DELETE //ke?
 		$folder = strtolower(get_class($this));
@@ -877,7 +877,7 @@ class ObjectModule
 		return $url;
 	} 
 	
-	private function deleteFile($id)
+	public function deleteFile($id)
 	{
 		if($id==null)
 		{
@@ -925,9 +925,27 @@ class ObjectModule
 		$out['fullUrl'] = WWW . 'content/' . strtolower(get_class($this)) . '/' . $r['file'];
 		$out['dir'] = strtolower(get_class($this));   
 		
-		return $out;
+		return $out;	
+	}
+	
+	
+	public function SaveObject()
+	{
+		$fields = get_class_vars(get_class($this));
+		$fields = $fields['fields'];
+		
+		$data = array('id'=>$this->id);
+		foreach($fields as $key => $val)
+		{
+			$data[$key] = $this->$key;
+		}
+		
+		dbReplace($data, $this->tableName);
 		
 	}
+	
+	
+	
 		
 }
 
