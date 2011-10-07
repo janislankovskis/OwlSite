@@ -7,6 +7,7 @@ text
             'required' =>false,
             'readonly'=> false,
             'notInList' => true,
+            'maxlength'	=> 64, /* ads maxlength attribute to input tag */
 		),
 
 ---

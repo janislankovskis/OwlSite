@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>{tra item=siteTitle group=site}{if sizeof($module->getTitle())}: {foreach from=$module->getTitle() name=title item=item}{$item}{if !$smarty.foreach.title.last} < {/if}{/foreach}{/if} {if DEV} [DEV]{/if}</title>
+<title>{tra item=siteTitle group=site}{if sizeof($module->getTitle())}: {foreach from=$module->getTitle() name=title item=item}{$item}{if !$smarty.foreach.title.last} - {/if}{/foreach}{/if} {if DEV} [DEV]{/if}</title>
 {if $module->metaDescription!=''}
 <meta name="description" content="{$module->metaDescription|escape}" />
 {/if}

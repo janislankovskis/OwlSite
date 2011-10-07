@@ -46,7 +46,7 @@ function  dbExecute($query=null, $class='')
     		/* 'result' => $list, */
     	);
     	
-    	$cache->results[sha1($query)] = $list;
+    	//$cache->results[sha1($query)] = $list;
     	
     	$cache->executedQueries['____totTime']  = $cache->executedQueries['____totTime'] + ($time2-$time1);
     	$cache->executedQueries['____queriesCount']++;

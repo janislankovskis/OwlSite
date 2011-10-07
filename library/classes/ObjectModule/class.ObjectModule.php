@@ -1,7 +1,7 @@
 <?php 
 
 /* 
-	pats parastakais objekts
+	Model Class
 */
 
 class ObjectModule 
@@ -933,8 +933,12 @@ class ObjectModule
 	{
 		$fields = get_class_vars(get_class($this));
 		$fields = $fields['fields'];
+		$data = array();
 		
-		$data = array('id'=>$this->id);
+		if(isPositiveInt($this->id))
+		{
+			$data['id'] = $this->id;
+		}
 		foreach($fields as $key => $val)
 		{
 			$data[$key] = $this->$key;

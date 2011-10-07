@@ -357,18 +357,6 @@ class PublicModule
 	
 	public function _add_js($file)
 	{
-		/*
-		if(substr($file, 0, 4)!='http' && file_exists(PATH . $file))
-		{
-			$this->jsString .= file_get_contents(PATH . $file);
-			$file = $file . '?' . date('YmdHis', filemtime(PATH . $file));		
-			$this->jsStringName .= $file;
-		}
-		else
-		{
-			$this->js[] = $file;
-		}
-	*/
 		$this->js[] = $file;
 	}
 	
