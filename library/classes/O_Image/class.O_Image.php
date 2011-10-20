@@ -1,23 +1,58 @@
 <?php
-
-/*
-	
-	collection of functions used to resize, scale, crop, cache images
-
+/**
+* @category		OwlSite
+* @package 		OwlSite Library
+*
+* @version 1.1
 */
+
 
 class O_Image
 {
+	/**
+	* @category		OwlSite
+	* @package 		OwlSite Library
+	* @subpackage	O_Image
+	* 
+	*
+	* Used to resize, crop, cache, dispaly images on the fly
+	* Main functionality: O_Image::LoadImage($params);
+	*/
 	
+		
 	public static function LoadImage($params=array())
 	{
+		/**
+		* @category		OwlSite
+		* @package 		OwlSite Library
+		* @subpackage	O_Image
+		* 
+		* @returns string OR fasle
+		* 
+		* Used for returning formated img tag ex <img src="path/to/cached/image.jpg" alt="image alt text" widht="int" height="int" /> 
+		*	or just url. 
+		*
+		* $params = array(
+		*   'file' 		=> string,
+		* 	'from'		=> string,  (folder name in ROOT /content/[folder_name] )
+		*	'width'		=> int, [optional] (target width)
+		*	'height'	=> int, [optional] (target height)
+		*	'crop'		=> bool, [optional] (default false, if true, resizes and crops image to desired width and height dimensions)
+		*	'alt'		=> string, [optional] (default is empty)
+		*   'urlonly'	=> bool, [optional] (default false, if true, returns only image url ex. "path/to/your/image.jpg" )
+		*	'ar'		=> bool, [optional] (default true, if false, aspect ratio of image is ignored )
+		*	'quality'	=> int (1-100), [optional] (default 80, sets image quality while generating one)
+	 	* );
+	 	*
+		*/
+
+	
 		global $project;
 		$params['quality'] = 80;
 		extract($params);
-		//file, width, height, from, urlonly, alt, ar, crop
 		if(!isset($file) || $file=='')
 		{
-			return;
+			return false;
 		}
 		
 		if(!isset($alt))
@@ -33,16 +68,11 @@ class O_Image
 		
 		if(!file_exists($path. $file))
 		{
-			return;
+			return false;
 		}
 		
 		$images = array('.jpg', '.jpeg', '.gif', '.bmp', '.png'); 
-		//$flash = array('.swf');
-		
-		//if( in_array(strtolower($ext), $flash) )
-		//{
-		//	return displayFlash($params);
-		//}	
+
 		if(in_array(strtolower($ext), $images) )
 		{
 	    	if(isset($ar))
@@ -95,20 +125,21 @@ class O_Image
 	    	{
 	    		return $imageurl;
 	    	}
+	    	
 	    	if(!file_exists($cache_path . $fileName))
 	    	{
 	    		return false;
 	    	}
 	    	
-			$img = new Imagick($cache_path . $fileName);
-			$geo = $img->getImageGeometry();				
 			
+	    	$geo = getimagesize($cache_path . $fileName);
+	    	
 			if(!isset($addClass))
 			{
 				$addClass = '';
 			}
 			
-			$tag = '<img class="' . $addClass . '" src="' . $imageurl . '" alt="'.$alt.'" width="'.$geo['width'].'" height="'.$geo['height'].'" />';
+			$tag = '<img class="' . $addClass . '" src="' . $imageurl . '" alt="'.$alt.'" width="'.$geo[0].'" height="'.$geo[1].'" />';
 			return $tag;
 		}
 		else
@@ -122,7 +153,17 @@ class O_Image
 	
 	public static function GenerateThumbnail($params=array())
 	{
-	
+		/**
+		* @category		OwlSite
+		* @package 		OwlSite Library
+		* @subpackage	O_Image
+		* 
+		*
+		* Used to resize, crop images
+		* Main functionality: O_Image::LoadImage($params);
+		* @returns bool
+		*
+		*/
 		$path = PATH . '/content/' . $params['from'] . '/';
 		$cache_path = PATH . 'cache/images/';
 	 
@@ -140,6 +181,12 @@ class O_Image
 		
 		$filePath = $path . $params['file'];
 		
+		if(!extension_loaded("imagick"))
+		{
+			//fallback to phpThumb
+			$params['target'] = $cache_path . $params['fileName'];		
+			return self::GeneratePhpThumb($params);
+		}
 		
 		$img = new Imagick($filePath);
 		if(!$img) { return false; }
@@ -157,7 +204,7 @@ class O_Image
 		
 		if($params['width']!=0 && $params['height']!=0 && !(isset($params['crop']) && $params['crop']==true))
 		{
-			//scale image
+			//scale
 			if(!isset($params['ar']))
 			{	
 				$params['ar'] = 1;
@@ -168,7 +215,7 @@ class O_Image
 		}
 		elseif(isset($params['crop']) && $params['crop'] == true && ($params['width']!=0 || $params['height']!=0) )
 		{
-			//crop image
+			//crop
 			$img->cropThumbnailImage($params['width'], $params['height']);
 		}
 			
@@ -178,9 +225,40 @@ class O_Image
 	
 	}
 	
+	public static function GeneratePhpThumb($params)
+	{
+		/** 
+		* @category 	OwlSite
+		* @package 		OwlSite Library
+		* @subpackage 	O_Image
+		* 
+		*
+		* Used for Imagick fallback
+		* uses phpThumb - http://phpthumb.sourceforge.net/
+		*/
+		require_once( PATH . 'library/3rdpart/phpThumb/phpthumb.class.php');
+		
+		$phpThumb = new phpThumb();
+		$phpThumb->setSourceFilename(PATH . '/content/' . $params['from'] . '/' . $params['file']);
+		$phpThumb->setParameter('q', $params['quality']);
+		$phpThumb->setParameter('w', $params['width']);
+		$phpThumb->setParameter('h', $params['height']);
+		if(isset($params['ar']) && $params['ar'] == false){
+			$phpThumb->setParameter('iar', '1');
+		}
+		if(isset($params['crop']) && $params['crop']){
+			$phpThumb->setParameter('zc', '1');
+		}
+		
+		if($phpThumb->GenerateThumbnail()){
+			if ($phpThumb->RenderToFile($params['target'])) {
+				return true;				
+			}
+		}
+		return false;		
+	}
 	
-
-
+	
 }
 
 

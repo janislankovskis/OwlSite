@@ -19,6 +19,7 @@
 {if FAVICON}
 <link rel="shortcut icon" type="image/x-icon" href="{$smarty.const.BASE}favicon.ico">
 {/if}
+<link rel="stylesheet" href="{$smarty.const.BASE}library/3rdpart/html5boilerplate/style.css" />
 {foreach from=$module->GetCss() item=css}
 <link rel="stylesheet" href="{$css}" />
 {/foreach}

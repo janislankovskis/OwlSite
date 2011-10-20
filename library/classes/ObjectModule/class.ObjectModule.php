@@ -16,7 +16,9 @@ class ObjectModule
 	public $allowedParams = array('sort', 'direction', 'limit', 'id', '_search', 'where', 'order', 'leftJoin', 'select');
 	
 	public $presave, $postsave; //pre & podt save actions
-	
+
+	public $presaveO, $postsaveO; //pre & podt save actions	 V2
+
 	public $cleanup; 
 	
 	private $joinLetters = array('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p');
@@ -71,14 +73,18 @@ class ObjectModule
 	public function Save($variables)
 	{
 		
-		$this->loadValues(); //aaaaaaaa
+		$this->loadValues(); //aaaaaaaa		
 		
+//		debug($this);
+
 		if($this->presave != NULL)
 		{
 			$variables = call_user_func(array($this, $this->presave), $variables);
 		}
 		
 		$variables = $this->validate($variables);
+		
+		//debug($variables);
 			
 		if(isset($this->id) && $this->id > 0)
 		{
@@ -939,10 +945,34 @@ class ObjectModule
 		{
 			$data['id'] = $this->id;
 		}
+		
+		//check presave
+		
+		if(isset($this->presaveO))
+		{
+			call_user_func(array($this, $this->presaveO));
+		}
+		
 		foreach($fields as $key => $val)
 		{
-			$data[$key] = $this->$key;
+			//check data types etc
+			switch($val['type'])
+			{
+				case 'autodatetime';
+					$data[$key] = "__NOW()__";
+				break;
+				
+				case 'ip_addr';
+					$data[$key] = $_SERVER['REMOTE_ADDR'];
+				break;
+				
+				default:
+					$data[$key] = $this->$key;
+				break;
+			}
+			
 		}
+		
 		
 		dbReplace($data, $this->tableName);
 		

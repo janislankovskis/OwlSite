@@ -1,12 +1,17 @@
 <?php
 
-/*
- * TODO: REPLACE, UPDATE 
- */
+
+/* def cache */
+//TODO: move to the Cache class!
+$cache = new stdClass();
+$cache->executedQueries = array();
+$cache->executedQueries['____queriesCount'] = 0;
+$cache->executedQueries['____totTime'] = 0;
+
 
 function  dbExecute($query=null, $class='')
 {
-    global $conf;
+ //   global $conf;
     global $cache;
 
     if(is_array($query))
@@ -14,43 +19,23 @@ function  dbExecute($query=null, $class='')
         $query = getQuery($query);
     }
     $time1 = microtime(true); 
-    /*
-    if($conf['CACHEQUERIES'])
-    { 
-        if(!isset($cache->readFromCache)) { $cache->readFromCache = 0; } 
-        
-        //is in cache?
-        if(isset($cache->executedQueries[sha1($query)]['result']))
-        {   
-            $cache->readFromCache++;
-            return $cache->executedQueries[sha1($query)]['result'];
-            
-        }
-        
-        $time1 = microtime(true); 
-            if(!isset($cache->totTime)) { $cache->totTime = 0; } 
-            if(!isset($cache->queriesCount)) { $cache->queriesCount = 0; } 
-    } 
-    */
+     
     $result = mysql_query($query);
     
     $list = GetListFromResource($result, $class);
     
-    if($conf['CACHEQUERIES'])
-    {
+    //if($conf['CACHEQUERIES'])
+    //{
                 
     	$time2 = microtime(true);
     	$cache->executedQueries[sha1($query)] = array(
     		'query' => $query,
     		'time' => $time2-$time1,
-    		/* 'result' => $list, */
     	);
-    	
-    	//$cache->results[sha1($query)] = $list;
     	
     	$cache->executedQueries['____totTime']  = $cache->executedQueries['____totTime'] + ($time2-$time1);
     	$cache->executedQueries['____queriesCount']++;
-    }
+    //}
     
     
     if($error = mysql_error())
@@ -311,7 +296,10 @@ function dbInsert($data, $table, $replace=false)
         {
             $values .= '"' . mysql_real_escape_string($val) .'", '; 
         }
-        
+        else //null etc
+        {
+        	$values .= ' "", ';
+        }
         
     }
     

@@ -48,6 +48,7 @@ class PublicModule
 			
 			global $conf;
 			$fName = sha1($fName) . '.css';
+			
 			if(!file_exists( $conf['CACHE_PATH'] . 'css/' . $fName ))
 			{
 				foreach($this->css as $file)
@@ -58,8 +59,7 @@ class PublicModule
 				 	}
 				}	
 				
-				
-				file_put_contents ( $conf['CACHE_PATH'] . '/css/' . $fName , $strWrite);
+				file_put_contents ( $conf['CACHE_PATH'] . 'css/' . $fName , $strWrite);
 			}
 			
 			$outer[] = WWW . 'cache/css/' . $fName;
@@ -242,7 +242,6 @@ class PublicModule
 		
 		}
 		
-		
 		if($this->template == '404' || ( sizeof($this->urlParts) && $this->openedObject) )
 		{
 		    $this->title = array();
@@ -258,8 +257,6 @@ class PublicModule
 		{
 			$template =  $this->openedObject->template . '.tpl';
 		}
-		
-		
 		
 		$this->html = $smarty->fetch($path . $template);
 		$this->contentLoaded = true;
@@ -341,18 +338,18 @@ class PublicModule
 	public function _add_css($file)
 	{
 		
-		if(substr($file, 0, 4)!='http' && file_exists(PATH . $file))
+		if(substr($file, 0, 4)!='http' && file_exists($_SERVER['DOCUMENT_ROOT'] . $file))
 		{
-			$this->cssString .= file_get_contents(PATH . $file);
-			$file = $file . '?' . date('YmdHis', filemtime(PATH . $file));		
+			$this->cssString .= file_get_contents($_SERVER['DOCUMENT_ROOT'] . $file);
+			$file = $file . '?' . date('YmdHis', fileatime($_SERVER['DOCUMENT_ROOT'] . $file));
+			//$file = $file . '?' . date('YmdHis', getlastmod($_SERVER['DOCUMENT_ROOT'] . $file));
 			$this->cssStringName .= $file;
 		}
 		else
 		{
 			$this->css[] = $file;
-		}
+		}	
 		
-//		$this->css[] = $file;
 	}
 	
 	public function _add_js($file)
@@ -363,14 +360,14 @@ class PublicModule
 	public function GetCss()
 	{
 		$name = sha1($this->cssStringName);
-		$full_path = CACHE_PATH . '/css/' . $name . '.css';
+		$full_path = CACHE_PATH . 'css/' . $name . '.css';
+		
 		if(!file_exists($full_path))
 		{
 			/* remove comments */
 		    $this->cssString = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->cssString);
     		/* remove tabs, spaces, newlines, etc. */
     		$this->cssString = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $this->cssString);
-		
 			file_put_contents($full_path, $this->cssString);
 		}
 		$this->css[] = WWW . 'cache/css/' .$name . '.css';

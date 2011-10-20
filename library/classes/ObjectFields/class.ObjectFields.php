@@ -3,7 +3,7 @@
 class ObjectFields
 {
 	
-	public $allowedTypes = array('text', 'array', 'checkbox', 'textarea', 'objectList', 'file', 'custom', 'richtext', 'select', 'password', 'readonly', 'autodatetime', 'autoipaddr', 'date', 'rewrite', 'tags', 'datetime', 'objectRead' );
+	public $allowedTypes = array('text', 'array', 'checkbox', 'textarea', 'objectList', 'file', 'custom', 'richtext', 'select', 'password', 'readonly', 'autodatetime', 'autoipaddr', 'date', 'rewrite', 'tags', 'datetime', 'objectRead', 'hidden', 'ip_addr' );
 	
 	public static function GetTypes()
 	{
@@ -79,6 +79,15 @@ class ObjectFields
 			case 'readonly':
 				$out = self::getReadonly($item);
 			break;
+			
+			case 'hidden':
+				$out = self::getReadonly($item);
+			break;
+			
+			case 'ip_addr':
+				$out = self::getReadonly($item);
+			break;
+			
 			
 			case 'custom':
 				$itemData = call_user_func(array($object, $item['method']));
