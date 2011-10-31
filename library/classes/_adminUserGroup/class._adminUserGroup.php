@@ -1,6 +1,6 @@
 <?php 
 
-class _adminUserGroup extends ObjectModule //TODO:  extends 
+class _adminUserGroup extends O_Model
 {
 	public $name;
 	

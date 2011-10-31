@@ -1,6 +1,6 @@
 <?php 
 
-class _adminUserPermission extends ObjectModule 
+class _adminUserPermission extends O_Model 
 {
 	public $group, $module, $action, $active;
 	

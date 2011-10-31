@@ -1,39 +1,58 @@
+body 
+{
+	background-color: #F3F3F3;
+}
+
+.wrap
+{
+	width: 500px;
+	margin: 5em auto;
+}
+
+.wrap img
+{
+	margin-left: 15px;
+}
+
 .loginBox
 {
-	margin: 0 auto;
-	margin-top: 200px;
-	width: 450px;
+	border-top: solid 7px #9FEE00;
 	text-align: center;
-	background: url(../images/login-box.gif) no-repeat top left;
-	padding: 90px 25px 5px 25px;
+	background-color: #FFF;
+	padding: 15px 15px;
+	margin-top: 10px;
+	
+	border-radius: 5px;
+	box-shadow: 0 0 2px 1px #999;
 }
 
 .note
 {
 	font-size: 10px;
-	padding: 20px 45px 10px 0;
-	color: #CCC;
+	padding: 20px 45px 10px 15px;
+	color: #666;
 }
 .note a,.note a:hover  
 {
-	color: #CCC;
+	color: #666;
 }
 
 .oneLine .left
 {
-	width: 220px;
+	width: 230px;
 	text-align: left;
 	padding-top: 5px;
 }
 
 .oneLine input
 {
-	width:210px;
+	width:222px;
 }
 
 .oneLine label
 {
-	color: #FFFFFF;
+	color: #333;
+	font-size: 86%;
 }
 
 .first
@@ -57,16 +76,4 @@
 	-moz-border-radius: 3px;
 	-opera-border-radius: 3px;
 	borred-radius: 3px;
-}
-
-div button
-{
-	border: solid 1px #999999;
-	color: #333333;
-	cursor: pointer;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-opera-border-radius: 3px;
-	borred-radius: 3px;
-	background-color: #FAFAFA;
 }

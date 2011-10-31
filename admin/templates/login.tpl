@@ -13,6 +13,9 @@
 </head>
 <body>
 
+<div class="wrap">
+	<img src="images/owlsite-logo.png" alt="owlsite" />
+
 <div class="loginBox">
 
 {if $module->loginAttempt == 'fail'} 
@@ -37,7 +40,7 @@
 	
 	<div class="oneLine fields">
 		<div class="left first">
-			<input type="text" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email|escape}{/if}" />		
+			<input type="email" id="email" name="email" value="{if isset($smarty.post.email)}{$smarty.post.email|escape}{/if}" />		
 		</div>
 		<div class="left">
 			<input type="password" id="password" name="password" />
@@ -51,8 +54,14 @@
 	
 	
 </form>
+
+</div>
+
 <div class="note">
 	If you found yourself here by mistake close this page or visit our <a href="{$module->getSiteUrl()}">SITE</a>.</div>
+</div>
+
+
 </div>
 
 {foreach from=$module->assign.js item=item}

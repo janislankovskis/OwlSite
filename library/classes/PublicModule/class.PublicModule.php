@@ -30,7 +30,7 @@ class PublicModule
 		return $this->$name;
 		
 		/* cache all css */
-		if($name == css)
+		if($name == 'css')
 		{
 			$outer = array();
 			$fName = '';
@@ -341,8 +341,7 @@ class PublicModule
 		if(substr($file, 0, 4)!='http' && file_exists($_SERVER['DOCUMENT_ROOT'] . $file))
 		{
 			$this->cssString .= file_get_contents($_SERVER['DOCUMENT_ROOT'] . $file);
-			$file = $file . '?' . date('YmdHis', fileatime($_SERVER['DOCUMENT_ROOT'] . $file));
-			//$file = $file . '?' . date('YmdHis', getlastmod($_SERVER['DOCUMENT_ROOT'] . $file));
+			$file .= $file . '?' . md5_file($_SERVER['DOCUMENT_ROOT'] . $file);
 			$this->cssStringName .= $file;
 		}
 		else

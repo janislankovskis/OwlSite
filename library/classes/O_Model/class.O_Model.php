@@ -1,11 +1,31 @@
 <?php 
-
-/* 
-	Model Class
+/**
+* @category		OwlSite
+* @package 		OwlSite Library
+*
+* @version 1.1
 */
 
-class ObjectModule 
+class O_Model 
 {
+
+	/**
+	* @category		OwlSite
+	* @package 		OwlSite Library
+	* @subpackage	O_Model
+	* 
+	* help on field types and options -> /library/helper.txt
+	* 
+	* ///////////// Class YourModel extends O_Model //////////////////////
+	* 
+	* $ob = YourModel::LoadObject($ID);  	//returns object
+	* $ob = YourModel::LoadObject(); 	 	//returns empty object
+	* $ob->saveObject();
+	* $ob->delete();
+	*
+	* $list = YourModel::GetObjectList($params = array()) 	//returns array of objects
+	* 
+	*/
 	
 	public $error = array();
 	
@@ -21,7 +41,7 @@ class ObjectModule
 
 	public $cleanup; 
 	
-	private $joinLetters = array('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p');
+	protected $joinLetters = array('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p');
 	
 	/* MAGIC FUNCTIONS */
 	public function __construct($id = null)
@@ -30,15 +50,14 @@ class ObjectModule
 		{
 			return;
 		}
-		
-		$this->id = $id;
 
+		$this->id = $id;
+		
 		//cleanup function
 		if($this->cleanup != NULL)
 		{
 			$variables = call_user_func(array($this, $this->presave), $variables);
-		}
-		
+		}	
 	}
 	
 	public function __get($key)
@@ -74,8 +93,6 @@ class ObjectModule
 	{
 		
 		$this->loadValues(); //aaaaaaaa		
-		
-//		debug($this);
 
 		if($this->presave != NULL)
 		{
@@ -219,7 +236,7 @@ class ObjectModule
 	
 	public function uploadFile($fileData)
 	{
-		///TODO: DELETE //ke?
+		
 		$folder = strtolower(get_class($this));
 		$savePath = PATH . 'content/' . $folder . '/';
 		if(!file_exists($savePath))
@@ -500,6 +517,7 @@ class ObjectModule
 		$list = self::getObjectList($params);
 		if(sizeof($list))
 		{
+			$list[0]->loader();
 			return $list[0];	
 		}
 		
@@ -703,6 +721,18 @@ class ObjectModule
 		return false;
 		
 	}
+
+	private function loader()
+	{
+		//solution for serialized fields
+		foreach($this->fields as $name=>$field)
+		{
+			if( ( isset($field['serialized']) && $field['serialized']) || $field['type'] == 'array')
+			{
+				$this->$name = 	unserialize($this->$name);
+			}	
+		}
+	}
 	
 	private function loadUpdated()
 	{
@@ -732,7 +762,8 @@ class ObjectModule
 	public function loadValues()
 	{
 		$class = get_class($this);
-		
+
+		// return $class::LoadObject($this->id);
 		
 		if($this->id!=null)
 		{
@@ -770,6 +801,7 @@ class ObjectModule
 			}			
 			$this->$prop = $value;	
 		}
+		
 		
 	}
 	

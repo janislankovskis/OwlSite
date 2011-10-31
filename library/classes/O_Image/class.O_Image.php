@@ -258,6 +258,39 @@ class O_Image
 		return false;		
 	}
 	
+	public static function Resize($params = array())
+	{
+		/** 
+		* @category 	OwlSite
+		* @package 		OwlSite Library
+		* @subpackage 	O_Image
+		* 
+		*
+		* Used for resizing in-place. without copying to cache.
+		* takes 3 params - width, height, file [path-to-file]
+		*/
+		
+		if(!isset($params['width']) || !isset($params['height']) || !isset($params['file']) )
+		{
+			return false;
+		}
+		
+		require_once( PATH . 'library/3rdpart/phpThumb/phpthumb.class.php');
+		$phpThumb = new phpThumb();
+		$phpThumb->setSourceFilename($params['file']);
+		$phpThumb->setParameter('w', $params['width']);
+		$phpThumb->setParameter('h', $params['height']);
+		
+		if($phpThumb->GenerateThumbnail()){
+			if ($phpThumb->RenderToFile($params['file'])) {
+				return true;				
+			}
+		}
+		return false;		
+
+		
+	}
+	
 	
 }
 

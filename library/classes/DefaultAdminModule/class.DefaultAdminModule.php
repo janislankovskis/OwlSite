@@ -4,8 +4,8 @@ class DefaultAdminModule
 {
 
 	public $assign = array('js'=>array());
-	
-	public $view, $js;
+
+	public $view, $js, $caller;
 	
 	public $objectName = '';
 	
@@ -22,24 +22,19 @@ class DefaultAdminModule
 	   {
 	       $this->GetSearchTagsResult($_GET['tag']);
 	   }
-	   		   	
 		
-		//TODO: fix this! 
+		//TODO: fix this / re-think
 		
 		$mode = 'List';
 		if(isset($_GET['mode']))
 		{	
 			$mode = ucwords($_GET['mode']);
-		//	$mode = $_GET['mode'];
 		}
-		
-		
 		
 		if(!in_array(strtolower($mode), $this->modes))
 		{
 			return;
 		}
-		
 		
 		if($mode == 'List')
 		{
@@ -48,9 +43,7 @@ class DefaultAdminModule
 		
         if(method_exists($this, $mode))
         {
-		  
-		  call_user_func(array($this, $mode));
-		
+			call_user_func(array($this, $mode));
 		}
 		
 		$this->assign['mode'] = $mode;
@@ -63,19 +56,18 @@ class DefaultAdminModule
 		{
 			$id = $_GET['id'];
 		}
+
+		$obName = $this->objectName;
+		$this->assign['openedObject']  = $obName::LoadObject($id); 
+		$this->openedObject = $this->assign['openedObject'];
 		
-		$object = new $this->objectName($id);		
-		$object->loadValues();
-		$this->assign['openedObject']  = $object;
-		$this->openedObject = $object;
 		$values = array();
-		
 		if(sizeof($_POST))
 		{
 			$values = $_POST;
 		}
 		
-		return ObjectForm::createHtmlForm($object, $values);
+		return ObjectForm::createHtmlForm($this->assign['openedObject'], $values);
 	}
 	
 	
@@ -93,7 +85,6 @@ class DefaultAdminModule
 		$params['limit'] = ($page-1)*$this->itemsPerPage .  ', ' . $this->itemsPerPage;
 		$this->assign['list'] = $obj->getList($params);
 		
-//		unset($params['limit']);
 		$pages = array(
 			'total' => ceil($obj->getCount($params)/$this->itemsPerPage),
 			'current' => $page, 
@@ -226,6 +217,10 @@ class DefaultAdminModule
 	   return $smarty->fetch( PATH . 'library/templates/blocks/paginator.tpl' );
 	}
 
+	public function getRelUrl()
+	{
+		return get_included_files();
+	}
 
 }
 

@@ -31,5 +31,4 @@ $smarty->display($module->template . '.tpl');
 
 mysql_close($connect);
 
-
 ?>

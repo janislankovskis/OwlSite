@@ -5,22 +5,23 @@ class CurrentModuleObject extends DefaultAdminModule
 
 	public $objectName = 'Object';
 	
-	public $moduleName = 'Content';	
+	public $moduleName = 'Pages';	
 	
 	public $modes = array('edit', 'add', 'delete', 'save', 'ajaxload');
 	
 	public function __construct()
 	{
-	   
+
 	    $this->initModule();
 		
 		$this->getView();
 		
 		$this->loadTree();
 		
+
 		$this->_add_css( 'style/forms.css');
-		$this->_add_css('modules/content/module.css');
-		$this->_add_js('modules/content/module.js');
+		$this->_add_css('modules/pages/module.css');
+		$this->_add_js('modules/pages/module.js');
 		$this->_add_js('js/formhelpers.js');
 	}
 	
@@ -46,7 +47,10 @@ class CurrentModuleObject extends DefaultAdminModule
 					$this->assign['form'] = $this->getForm();
 				break;
 			}
+
 		}
+
+
 		
 	}
 	
@@ -114,7 +118,7 @@ class CurrentModuleObject extends DefaultAdminModule
         foreach($list as $item)
         {
             $smarty->assign('item', $item);
-            $html .= $smarty->fetch(ADMIN_PATH  . 'modules/content/treeItem.tpl');
+            $html .= $smarty->fetch(ADMIN_PATH  . 'modules/pages/treeItem.tpl');
         }
         
         $html .= '</ul>';

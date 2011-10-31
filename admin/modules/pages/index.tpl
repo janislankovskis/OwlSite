@@ -34,7 +34,7 @@
 			</div>
 			</div>
 			<div class="left item"> 
-			<a href="{url remove="parent" add="mode=edit,id=`$item->id`"}" title="Edit content '{$item->name|escape}'" class="left itemName{if $item->active} active{/if}">{$item->name|truncate:20:"...":true}</a>
+			<a href="{url remove="parent" add="mode=edit,id=`$item->id`"}" title="Edit content '{$item->name|escape}'" class="left itemName{if $item->active} active{/if}{if $item->id==$module->assign.openedObject->id} current{/if}">{$item->name|truncate:20:"...":true}</a>
 			<a class="add left" title="Create new content under '{$item->name|escape}'" href="{url add="mode=add,parent=`$item->id`" remove="id"}">&nbsp;</a>
 			<div class="clear"></div>
 			 <div class="children{$item->id}Wrap">
@@ -74,23 +74,24 @@
 		{else}
 			<input type="hidden" name="parent" value="{$openedObject->parent}" />
 		{/if}
-		
 		{foreach from=$form item=item}
-			
 			{assign var=name value=$item.name}
 			<div class="formItem{if isset($error.$name)} error{/if}">
 				{if is_array($item.field)}
 					<fieldset>
 						<legend>Object custom data</legend>
-						{foreach from = $item.field item=field}
+						{foreach from = $item.field item=field key=key}
 							<div>{$field.field}</div>
 						{/foreach}
 					</fieldset>
 				{else}
-				{$item.field}
+					{if $name!='parent'} {* excluded *}
+						{$item.field}
+					{/if}
 				{/if}
 			</div>
 		{/foreach}
+		{* TODO: toggle technical details *}
 		<div class="smallinfo">Content url: {$openedObject->getUrl()}</div>
 		<div class="oneField submit">
 			<button type="submit" class="saveBtn">Save{if isset($smarty.get.id)} changes{/if}</button> <a class="fromCancelLink" href="{url remove="id,mode"}">Cancel</a>

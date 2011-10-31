@@ -1,6 +1,6 @@
 <?php 
 
-class _adminUser extends ObjectModule 
+class _adminUser extends O_Model
 {
 
 	public $group, $email, $password, $active, $module, $sum;
@@ -46,15 +46,11 @@ class _adminUser extends ObjectModule
 			{
 				return $_SESSION[self::getSessionName()];
 			}
-			
 			$ID = $_SESSION[self::getSessionName()]->id;
-			$user = new _adminUser($ID);
-			$user->loadValues();
+			$user = _adminUser::LoadObject($ID);
 			return $user;
 		}
-		
 		return false; //new _adminUser();
-		
 	}
 	
 	

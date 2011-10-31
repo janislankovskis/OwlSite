@@ -1,6 +1,6 @@
 <?php 
 
-class _siteConfig extends ObjectModule
+class _siteConfig extends O_Model
 {
 	
 	public $tableName = 'configuration';

@@ -1,6 +1,6 @@
 <?php 
 
-class Object extends ObjectModule
+class Object extends O_Model
 {
 	
 	public $tableName = 'objects';
@@ -624,13 +624,7 @@ if(!sizeof($_POST) || is_string($this->data))
 		$params = array_merge($params, $params2);
 		return $this->getList($params);
 	}
-		
-		
-	
 
-	
-	
-	
 }
 
 

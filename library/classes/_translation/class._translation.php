@@ -1,6 +1,6 @@
 <?php 
 
-class _translation extends ObjectModule
+class _translation extends O_Model
 {
 	
 	public $tableName = 'translations';

@@ -1,7 +1,5 @@
 {if !$mceLoaded}
-	
 	<script type="text/javascript" src="{$path_tiny_mce}"></script>
-
 {literal}
 <script type="text/javascript">
 

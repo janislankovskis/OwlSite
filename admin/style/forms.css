@@ -16,6 +16,7 @@ form .error
 .objectTable tr:hover
 {
     color: #222;
+    background-color: #E4DD86;
 }
 
 .objectTable tr:hover a, .paginatorContainer:hover a
@@ -25,15 +26,19 @@ form .error
 
 .objectTable tr a:hover
 {
-	background-color: #2C80B5;
+	background-color: #85BA2E;
 	color: #FFF;
 }   
 
-.objectTable thead, .objectTable thead a, body .objectTable thead:hover a, .paginatorContainer a:hover
+.objectTable thead, .objectTable thead a, body .objectTable thead:hover a, .paginatorContainer a:hover, .objectTable thead tr:hover
 {
-	background-color: #2C80B5;
-	background-color: #679EC1;
+ 	background-color: #50790F;
 	color: #FFF;
+}
+
+.objectTable thead td
+{
+	padding: 7px;
 }
 
 .zebra1
@@ -48,9 +53,8 @@ form .error
 
 .form
 {
-	padding: 10px 0 60px;
+	padding: 20px 0 60px;
 	color: #9d9d9d;
-	font-size: 81.25%;
 }
 
 
@@ -92,23 +96,23 @@ textarea
 
 button
 {
-	border: solid 1px #999999;
-	color: #333333;
+	/*border: solid 1px #5E90B1;*/
+	color: #1D7373;
+	border: 0;
+	display: inline-block;
+	padding: 5px 10px;
 	cursor: pointer;
-	padding:3px 5px;
-	background: #FAFAFA;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-opera-border-radius: 3px;
-	border-radius: 3px;
+	borred-radius: 3px;
+	background-color: #e3e3e3;
 }
 
 button:hover
 {
-	border: solid 1px #999999;
-	color: #333333;
-	cursor: pointer;
-	background-color: #EEEEFA;
+	background-color: #85BA2E;
+	color: #FFF;
 }
 
 .auto

@@ -15,11 +15,15 @@
 </head>
 <body>
 <div class="mainWrap">
-
 <div class="upperContainerLine">
-	<div class="left">{tra item=siteTitle group=site} <a href="{$module->getSiteUrl()}" target="_blank">View Site</a></div>
-	<div class="right">Logged is as <b>{$module->loggedUser->email}</b> | <a href="?logout&amp;return={url}" onclick="return confirm('Sure You want to logout?');">Logout</a></div>
+	<div class="left">
+		<a href="{$smarty.const.ADMIN_WWW}" title="{$smarty.const.ADMIN_WWW}" ><img src="images/owlsite-logo-small.png" alt="home" /></a>
+	</div>
+	<div class="right">
+		<div>Logged is as <b>{$module->loggedUser->email}</b> | <a href="{$module->getSiteUrl()}" target="_blank">View Site</a> | <a href="?logout&amp;return={url}" onclick="return confirm('Sure You want to logout?');">Logout</a></div>
+	</div>
 	<div class="clear"></div>
+	
 </div>
 
 <div class="innerWrap">
