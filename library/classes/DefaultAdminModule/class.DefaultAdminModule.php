@@ -11,11 +11,12 @@ class DefaultAdminModule
 	
 	public $modes = array('edit', 'list', 'save', 'delete'); //define default actions
 	
-	public $openedObject;
+	public $openedObject, $relativeUrl;
 	
 	public $itemsPerPage = 25;	
 	
-	public function initModule()
+	
+	public function initModule($admin=null)
 	{
 	   
 	   if(isset($_GET['ajax']) && isset($_GET['tag']))
@@ -47,6 +48,22 @@ class DefaultAdminModule
 		}
 		
 		$this->assign['mode'] = $mode;
+
+		//load openedObject
+		if(isset($_GET['id']) && isPositiveInt($_GET['id']))
+		{
+			$name = $this->objectName;
+			$this->openedObject = $name::LoadObject($_GET['id']);
+		}
+
+		//add module.css if $admin interface loaded and file exists
+		if($admin!=null && file_exists(PATH . $admin->modulesProperties[$admin->module]['dir'] . 'module.css'))
+		{
+			$this->_add_css( $admin->getRelUrl() . 'module.css' );
+		}
+		
+
+
 	}
 	
 	public function GetForm()
@@ -219,8 +236,19 @@ class DefaultAdminModule
 
 	public function getRelUrl()
 	{
-		return get_included_files();
+		if($this->relativeUrl!='')
+		{
+			return $this->relativeUrl;
+		}
+
+		//$ad = new _adminModule;
+
+		debug($this);
+
+		//return get_included_files();
 	}
+
+
 
 }
 
