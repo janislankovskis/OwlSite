@@ -10,12 +10,8 @@
 {if $module->metaDescription!=''}
 <meta name="description" content="{$module->metaDescription|escape}" />
 {/if}
-<meta name="author" content="OWLSite">
-{*
-<meta name="viewport" content="width=device-width">
-<meta name="viewport" content="initial-scale=1.0">
-*}
-<meta name="viewport" content="width=640"> {* force width to be 640px *}
+<meta name="author" content="OwlSite // github.com/janislankovskis/OwlSite/">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 {if FAVICON}
 <link rel="shortcut icon" type="image/x-icon" href="{$smarty.const.BASE}favicon.ico">
 {/if}

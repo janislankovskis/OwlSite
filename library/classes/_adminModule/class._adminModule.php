@@ -3,8 +3,6 @@
 class _adminModule
 {
 
-	const DEFAULT_MODULE = 'Orders'; //TODO: create dashboard
-	
 	public $template, $module, $menu, $loggedUser, $language, $loginAttempt, $assign;
 	
 	
@@ -32,7 +30,7 @@ class _adminModule
 		$this->menu = $this->GetMenu();
 		$this->module = $this->GetModule();
 		$this->moduleContent = $this->GetModuleContent();
-		
+
 		return;
 	}
 	
@@ -165,7 +163,7 @@ class _adminModule
 		{
 			$smarty->template_dir[] = $templatePath;
 			include_once($templatePath . 'module.php');
-			$moduleObject = new CurrentModuleObject();
+			$moduleObject = new CurrentModuleObject($this);
 			$assign = $moduleObject->assign;
 			$smarty->assign('module', $moduleObject);
 			$smarty->assign($assign);
@@ -254,6 +252,12 @@ class _adminModule
 	{
 		return WWW;
 	}
+
+	public function getRelUrl()
+	{
+		return BASE . $this->modulesProperties[$this->module]['dir'];
+	}
+
 
 }
 

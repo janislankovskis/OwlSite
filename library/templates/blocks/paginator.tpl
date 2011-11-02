@@ -10,7 +10,7 @@
 {if $pages.total>1}
     <div class="paginatorContainer">
     {if $pages.current!='1'}
-		  <a href="{url add="page=`$pages.current-1`"}" title="page {$pages.current-1}">&laquo;</a>
+		  <a href="{url add="page=`$pages.current-1`"}" title="page {$pages.current-1}" class="prev">&laquo;</a>
     {/if}
     {assign var=skip_start value=false}
     {assign var=can_skip value=true}
@@ -36,7 +36,7 @@
 		
 	{/section}
 	{if $pages.current!=$pages.total}
-		  <a href="{url add="page=`$pages.current+1`"}" title="page {$pages.current+1}">&raquo;</a>
+		  <a href="{url add="page=`$pages.current+1`"}" title="page {$pages.current+1}" class="next">&raquo;</a>
     {/if}
     </div>
 {/if}

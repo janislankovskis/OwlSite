@@ -30,12 +30,14 @@ class Object extends O_Model
 		),
 		
 		'parent' => array(
-			'type' => 'hidden',
+			'type' => 'custom',
+			'method' => 'loadParentField',
 		),
 		
 		'ordering' => array(
 			'type' => 'custom',
 			'method' => 'loadOrdering',
+			'alt_lebel' => 'Place after'
 		),
 		
 		
@@ -76,6 +78,7 @@ class Object extends O_Model
 			'type' => 'autoipaddr',
 			'updateonsave'	=> true,
 		),
+
 		
 		
 	);
@@ -107,7 +110,7 @@ class Object extends O_Model
 	
 	public function getAllDescendants($id = false, $out=array())
 	{
-		if(!$id)
+		if(!$id && $id!=0)
 		{
 			return false;
 		}
@@ -123,7 +126,7 @@ class Object extends O_Model
 	
 	public function loadTreeChidren($parent = false)
 	{
-		if(!$parent)
+		if(!$parent && $parent!=0)
 		{
 			return false;
 		}
@@ -138,7 +141,7 @@ class Object extends O_Model
 		
 		foreach($list as $key=>$item)
 		{
-		      $list[$key]->children = $item->getChildren($item->id);
+		      $list[$key]->children = $item->loadTreeChidren($item->id);
 		      if(sizeof($list[$key]->children))
 		      {
 		          $list[$key]->hasChildren = true;
@@ -337,7 +340,59 @@ class Object extends O_Model
 		return $out;
 		
 	}
+
+	public function loadParentField()
+	{
+		$this->_d_level = 0;
+		$list = array('0' => '(no parent)');
+		//$list = $this->loadTreeChidren(0);
+		foreach( $this->formToArray($this->loadTreeChidren(0)) as $k => $v)
+		{
+			$list[$k] = $v;
+		}
+		$out = array (
+			'type' => 'select',
+			'list'	=> $list,
+			'name' 	=> 'parent',
+			'data'	=> $this->parent,
+			'addBlank' => true,
+		);
+		return $out;
+	}
 	
+
+	private function formToArray($tree, $saved = array())
+	{
+		if(!is_array($tree))
+		{
+			return $saved;
+		}
+		foreach($tree as $item)
+		{
+			if($item->id==$this->id)
+			{
+				continue;
+			}
+
+			$name = '';
+			for ($i = 1; $i <= $this->_d_level; $i++) 
+			{
+    			$name  .= '→';
+			}
+			$name .= ' ' . $item->name;
+			$saved[$item->id] = $name;
+			if(sizeof($item->children))
+			{	
+				$this->_d_level++;
+				$saved = $this->formToArray($item->children, $saved);
+				$this->_d_level--;
+			}
+		}
+
+		return $saved;
+	}
+
+
 	public function getTemplates()
 	{
 		//readdir 
@@ -419,6 +474,8 @@ class Object extends O_Model
 		//ordering
 		$data['ordering']++;
 		
+		//debug($data);
+
 		return $data;
 	}
 	
@@ -435,25 +492,7 @@ class Object extends O_Model
 			);
 			$fields[$this->xml_attribute($x, 'name')] = $field;
 		}
-		
-		/*
-if(!sizeof($_POST) || is_string($this->data))
-		{
-			//$this->data = unserialize($this->data);
-		}
-		else
-		
-*/
-/*
-		if(isset($_POST['data']))
-		{
-			$this->data = $_POST['data'];
-		}
-		else
-		{
-		  $this->data = '';
-		}
-*/		
+
 		$out = array(
 			'type' => 'array',
 			'name' => 'data', 
@@ -601,7 +640,6 @@ if(!sizeof($_POST) || is_string($this->data))
 				dbExecute($q);
 				$next++;
 		}
-        
 	}
 	
 	public function updateChildrenUrls($id)

@@ -11,7 +11,7 @@ class CurrentModuleObject extends DefaultAdminModule
 		$this->initModule();
 		$this->_add_css( 'style/forms.css');
 	}
-	
+
 	
 }
 

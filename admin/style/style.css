@@ -33,7 +33,15 @@ h2
 	padding: 0 0 5px;
 }
 
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
 
+.left
+{
+	float: left;
+}
 .right
 {
 	float: right;	
@@ -41,7 +49,7 @@ h2
 .moduleContent
 {
 	padding: 10px 10px 10px 20px;
-	overflow-x: auto;
+	/*overflow-x: auto;*/
 }
 
 .menuContainer

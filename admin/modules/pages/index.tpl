@@ -1,123 +1,107 @@
+<header>
 <h1>{$module->getModuleName()}</h1>
-<div class="wrap form">
-<div class="tree roundCorners left">
-	{if isset($tree)}
-	<div class="hidden data-urlBase">{url remove="id,pid,load,unload" add="mode=ajaxload"}&id=</div>
-	<ul class="treeGroup rootGroup">
-	{defun name="rc" list=$tree}
-		{foreach from=$list item=item} 
-            <li class="treeItem item{$item->id}">
-			<div class="opener left">
-			<div class="buttons{$item->id}Wrap">
-			<div class="hidden data-currentId">{$item->id}</div>
-			<div class="hidden data-ajaxLoadUrl">{url add="mode=ajaxload,id=`$item->id`"}</div>
-			{if $item->hasChildren}
-				{if sizeof($item->children)}
-				    {assign var="expanderClass" value=" hidden"}
-				    {assign var="collapserClass" value=""}
-				{else}	
-				    {assign var="expanderClass" value=""}
-				    {assign var="collapserClass" value=" hidden"}
-				{/if}
-            {else}
-                    {assign var="expanderClass" value=" hidden"}
-				    {assign var="collapserClass" value=" hidden"}
-				    &nbsp;
-			{/if}	    
-				    <a class="collapser toggler{$collapserClass}" title="Collapse '{$item->name}'" href="{url add="unload=`$item->id`" remove="load"}">
-						<img src="images/nolines_minus.gif" alt="-"/>
-					</a>
-				    
-				    <a class="expander toggler{$expanderClass}" href="{url add="load=`$item->id`" remove="unload"}" title="Expand '{$item->name}'">
-						<img src="images/nolines_plus.gif" alt="Expand {$item->name}"/>
-					</a>
-			</div>
-			</div>
-			<div class="left item"> 
-			<a href="{url remove="parent" add="mode=edit,id=`$item->id`"}" title="Edit content '{$item->name|escape}'" class="left itemName{if $item->active} active{/if}{if $item->id==$module->assign.openedObject->id} current{/if}">{$item->name|truncate:20:"...":true}</a>
-			<a class="add left" title="Create new content under '{$item->name|escape}'" href="{url add="mode=add,parent=`$item->id`" remove="id"}">&nbsp;</a>
-			<div class="clear"></div>
-			 <div class="children{$item->id}Wrap">
-   			{if sizeof($item->children)}
-   				<ul class="treeGroup">{fun name="rc" list=$item->children}</ul> 
-  	 		{/if}
-  	 		</div>
-  	 		</div>
-  	 		<div class="clear"></div>
-		</li>
-		{/foreach}	 
-	{/defun}	
-	</ul>
-	{/if}
-	
-	<div class="addZeroElement"><a href="{url add="mode=edit,id=0,pid=0"}" title="Add root element">Add root object</a></div>
-</div>
-{if isset($form)}
-
-<div class="left objectOptions">
-    
-    {if !$form}
-    
-    <div class="defaultError alert roundCorners shadow">
-        Object doesn't exists! <br />
-        
-        <a href="{url remove="id,pid,load,unload" add="pid=0,mode=edit,id=0"}">Create one!</a>
-        
-    </div>
-   
-    {else}
-    
-	<form class="defaultForm" action="{url add="mode=save"}" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="return" value="{url add="mode=edit"}" />
-		{if isset($smarty.get.parent)}
-			<input type="hidden" name="parent" value="{$smarty.get.parent}" />
-		{else}
-			<input type="hidden" name="parent" value="{$openedObject->parent}" />
+	<div>
+		<a class="add" href="{url add="mode=edit,id=0"}" title="Add new">Add new</a>
+		{if $module->view == 'form'}
+		<a class="all" href="{url remove="id,mode"}" title="view all">View all</a>
 		{/if}
-		{foreach from=$form item=item}
-			{assign var=name value=$item.name}
-			<div class="formItem{if isset($error.$name)} error{/if}">
-				{if is_array($item.field)}
-					<fieldset>
-						<legend>Object custom data</legend>
-						{foreach from = $item.field item=field key=key}
-							<div>{$field.field}</div>
-						{/foreach}
-					</fieldset>
-				{else}
-					{if $name!='parent'} {* excluded *}
-						{$item.field}
-					{/if}
-				{/if}
+	</div>
+</header>
+<div class="moduleContent form">
+{if $module->view == 'form'}
+	<h2>{if $module->openedObject->id>0}Edit{else}Create new{/if} page</h2>
+	{assign var=fields value=$module->GetForm()}
+	<form action="{url add="mode=save"}" method="post" enctype="multipart/form-data" class="clearfix">
+		<input type="hidden" name="return" value="{url add="mode=edit"}" />
+		<div class="left mainFields">
+			<div class="oneLine">
+				{$fields.name.field}
 			</div>
-		{/foreach}
-		{* TODO: toggle technical details *}
-		<div class="smallinfo">Content url: {$openedObject->getUrl()}</div>
-		<div class="oneField submit">
-			<button type="submit" class="saveBtn">Save{if isset($smarty.get.id)} changes{/if}</button> <a class="fromCancelLink" href="{url remove="id,mode"}">Cancel</a>
+			{if sizeof($fields.data.field)}
+				{$fields.data.field}
+			{/if}
 		</div>
+		<div class="right sysFields">
+			<div class="block">
+				<h2>Actions</h2>
+				<div class="clearfix">
+				<button type="submit" class="left">Save{if $module->openedObject->id>0} changes{/if}</button>
+				{if $module->openedObject->id>0}
+					<a class="left" href="{$module->openedObject->getUrl()}" target="_blank" title="view">View</a>
+					<a href="javascript:;" class="deleteLink right">Delete</a>
+				{/if}
+				</div>
+			</div>
+			<div class="block rondedCorners">
+				<h2>Parameters</h2>
+					{$fields.parent.field}
+					{$fields.template.field}
+					{$fields.ordering.field}
+					{$fields.rewrite.field}
+					{$fields.showonmenu.field}
+					{$fields.active.field}
+			</div>
+			<div class="block">
+				<h2>Meta data</h2>
+					{$fields.alt_title.field}
+					{$fields.alt_description.field}
+			</div>
+		</div>
+	</form>
+	<form action="{url add="id=`$module->openedObject->id`,mode=delete"}" method="post" class="inline deleteForm"><input type="hidden" name="id" value="{$module->openedObject->id}" /><input type="hidden" name="return" value="{url remove="mode,id"}" /></form>
+	{literal}				
+	<script>
+		jQuery(document).ready(function(){
+			
+			jQuery('.deleteLink').click(function(){
+				if(confirm('Sure to delete: {/literal}{$module->openedObject->name|escape}{literal}?'))
+				{
+					jQuery('.deleteForm').submit();				
+				}
+				return false;
+			})
+		});
+	</script>
+	{/literal}
+{else}
+	<div class="headTab clearfix">
+		<div class="ch left">{*<input type="checkbox" class="masteCh" />*}</div>
+		<div class="name left">Page name</div>
+		<div class="actions right">actions</div>
+		<div class="date right">last saved date</div>
+	</div>
+	<ul class="list clearfix">
+	{defun name=list menu=`$module->assign.list`}
+		{foreach from=$menu item=item name=menu}
+			<li class="clearfix item{if $item->opened} opened{/if}{if $smarty.foreach.menu.last} last{/if}{if $item->active} active{/if}">
+				<div class="clearfix wrap pod{cycle values="1,2"}">
+					<div class="ch left">{*<input type="checkbox" name="d[]" value="{$item->id}" class="delCh" />*}</div>
+					<a href="{url add="mode=edit,id=`$item->id`"}" class="name">{section name=l loop=$x}<span class="spacer">-</span>{/section}{$item->name}</a>
+					<div class="right actions">
+						<a href="{url add="mode=edit,id=`$item->id`"}">Edit</a>
+						<form action="{url add="id=`$item->id`,mode=delete"}" method="post" class="inline" onsubmit="return confirm('Sure to delete: {$item->name|escape} ?');">
+							<input type="hidden" name="id" value="{$item->id}" />
+							<input type="hidden" name="return" value="{url remove="mode,id"}" />
+							<button type="submit">Delete</button>
+						</form>
+					</div>
+					<div class="right date">{$item->dateSaved|date_format:"%d/%m/%Y %H:%M"}</div>
+				</div>
+				{if $item->children}
+					{assign var=x value=$x+1}
+					<ul class="submenu">{fun name=list menu=$item->children}</ul>
+					{assign var=x value=$x-1}
+				{/if}
+			</li>
+		{/foreach}
+	{/defun}
+	</ul>
+	{*
+	<div class="">With selectd: <a href="dlink">Delete</a></div>
+	{literal}
 		
-	</form>
-{if sizeof($module->assign.openedObject->id)}
-<div class="deleteObject roundCorners">
-	Delete this Content tree.
-	<form action="{url add="mode=delete"}" method="post" onsubmit="return confirm('Sure to delete this Content tree?');">
-		<input type="hidden" name="return" value="{url remove="id,mode"}" />
-		<input type="hidden" name="id" value="{$module->assign.openedObject->id}" />
-		<button type="submit" class="deleteBtn">Delete</button>
-	</form>
-</div>
-{/if}
-</div>
-{/if}
-{literal}
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        expand({/literal}{$module->assign.openedObject->parent}{literal})      
-    });
-</script>
-{/literal}
+	{/}
+	*}
 
 {/if}
-<div class="clear"></div>
 </div>

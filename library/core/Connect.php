@@ -2,7 +2,13 @@
 
 global $connect;
 
-$connect = mysql_connect($project['db_host'], $project['db_user'], $project['db_password']);
+$connect = @mysql_connect($project['db_host'], $project['db_user'], $project['db_password']);
+
+if(!$connect)
+{	
+	exit(file_get_contents( PATH . 'library/templates/dbError.tpl'));
+}
+
 mysql_select_db($project['db_name'], $connect);
 
 if($conf['SETNAMESUTF8'])

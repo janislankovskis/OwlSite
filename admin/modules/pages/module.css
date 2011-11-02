@@ -1,105 +1,168 @@
-.tree
+.list, .headTab
 {
-	margin-right: 23px;
-	max-width: 200px;
-}
-.tree li
-{
-	background-color: #eee;
-	margin-bottom: 3px;
-	padding: 3px 5px;
-	display: block;
-}
-.tree li ul li
-{
-	/*background-color: inherit;*/
+	/*width: 80%;*/
+	margin-right: 30px;
 }
 
-.tree li:hover, .tree .opened
-{
-/*	background-color: #ded;*/
-}
-
-.tree .current:before
-{
-	content: "→";
-}
-
-.tree li .itemName
-{
-	color: #999999;
-	text-decoration: none;
-}
-
-.add
-{
-	margin: 2px 0 0 4px;
-	background: url(images/add.gif) no-repeat center center transparent;
-	width: 13px;
-	height: 13px;
-	text-decoration: none;
-	display: block;
-}
-
-.tree li .active
-{
-	color: #222;
-}
-
-.tree ul
-{
-	margin: 0;
+.list .item{
 	list-style: none;
-}
-
-.tree .treeGroup
-{
+	margin: 0;
 	padding: 0;
-}
-
-.tree .opener
-{
-	width: 25px;
-}
-
-.toggler
-{
-	margin-top: -2px;
-}
-
-.deleteObject
-{
-	padding: 10px;
-	border: solid 1px #e3e3e3;
-	margin: 90px 0 0;
-}
-
-.deleteObject:hover
-{
-	background-color: #EE8787;
-}
-
-.defaultForm .smallinfo
-{
-	padding-left: 10px; 
-}
-
-.addZeroElement
-{
-	margin: 30px 0;
-}
-
-.addZeroElement a
-{
 	display: block;
-	background-color: #eee;
-	color: #000;
-	text-decoration: none;
-	padding: 6px 10px;
-	text-align: center;
+}
+.item .wrap
+{
+	/*padding: 5px 10px;*/
+	background-color: #f3f3f3;
+	border-bottom: solid 1px #e3e3e3;
+	margin-bottom: 1px;
 }
 
-.addZeroElement a:hover
+.item .spacer
 {
-    background-color: #85BA2E; 
+	width: 20px;
+	visibility: hidden;
+	display: inline-block;
+}
+
+.item .pod2
+{
+	background-color: #FAFAFA;
+}
+
+.wrap, .headTab
+{
+	padding: 5px 10px;
+}
+
+.headTab
+{
+	background-color: #CCC;
+	border-bottom: solid 1px #e3e3e3;
+	margin-bottom: 1px;
+	font-size: 116.666666667%;
+	color: #FFF;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.form .item .name
+{
+	text-decoration: none;
+	color: #9B93A5;
+	font-weight: bold;
+}
+
+.form .active .name
+{
+	color: #342348;
+}
+
+.moduleContent .date
+{
+	width: 120px;
+}
+
+.wrap div, .wrap .name, .headTab div
+{
+	padding: 5px 10px;
+}
+.wrap:hover
+{
+	background-color: #DDD;
+}
+.moduleContent .actions
+{
+	width: 110px;	
+}
+
+.moduleContent .actions a
+{
+	color: #333;
+}
+
+.sysFields
+{
+	max-width: 380px;
+}
+
+.sysFields .line .label
+{
+	width: 90px;
+}
+
+
+.sysFields .block
+{
+	border: solid 1px #DDD;
+	background-color: #fAfAfA;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.sysFields .line input, .sysFields textarea
+{
+	width: 220px;
+}
+
+.sysFields .line a
+{	
+	padding: 0 0 0 5px;
+	margin:0;
+}
+
+body .block a
+{
+	color: #666;
+	padding: 5px 10px;	
+	margin-left: 30px;
+}
+.deleteLink:hover
+{
+	background-color: #900;
+	color: #FFF;
+	border-radius: 5px;
+}
+
+header h1, header div
+{
+	display: inline-block;
+}
+
+header div .add, header div .all
+{
+	display: inline-block;
+	font-size: 64%;
+	text-decoration: none;
+	color: #666;
+	padding: 4px 8px;	
+	margin-left: 20px;
+	margin-top: -3px;
+	background-color: #fafafa;
+	border-radius: 5px;	
+}
+
+header div .all { background: none; text-decoration: underline;}
+
+header div .add:hover{ background-color: #85BA2E; color: #FFF; }
+
+.moduleContent h2
+{
+	font-size: 150%;
+	margin-bottom: 20px;
+	margin-right: 400px;
+	border-bottom: 1px dashed #eee;
+}
+
+.moduleContent .sysFields h2
+{
+	margin-bottom: 5px;
+	margin-right: 0;
+	border:0;
+	font-size: 112%;
+}
+
+input[type=checkbox]
+{
+	width:auto;
 }
