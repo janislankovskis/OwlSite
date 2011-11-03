@@ -57,7 +57,7 @@ h2
 	padding: 10px 0;
 	width: 150px;
  	background-color: #F6F6F6;
-    font-size: 83%;
+    font-size: 81.25%;	
    
 	-moz-box-shadow: inset -1px 0 5px #D3D3D3;
     -webkit-box-shadow: inset -1px 0 5px #D3D3D3;
@@ -83,14 +83,43 @@ h2
 	padding: 7px 15px;
 	text-decoration: none;
 	color: #AAAAAA;
-	margin-bottom: 3px;
+	margin-bottom: 1px;
 	text-transform: capitalize;
+	border-bottom: solid 1px #f0f0f0;
 }
 
 .menuContainer .menuItem a:hover, .menuContainer .active a
 {
 	background-color: #FFF;
 	color: #000;
+}
+
+.menuContainer .sub
+{
+	font-size: 84.6153846154%;
+	padding-left: 10px;
+	display: none;
+	background-color: #fafafa;
+	margin-top: 5px;
+}
+.menuContainer .sub li a
+{
+	padding-left: 35px;
+	margin-left: -15px;
+}
+
+.menuContainer .menutitle
+{
+	margin-top: 10px;
+	padding-left: 15px;
+	font-style: italic;
+	cursor: pointer;
+	color: #999;
+}
+
+.menuContainer .menutitle:hover
+{
+	color: #990000;
 }
 
 

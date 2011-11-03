@@ -29,8 +29,19 @@
 <div class="innerWrap">
 <div class="menuContainer left">
 	<ul id="menu" class="menuBlock">
-		{foreach from=$module->menu.library item=item}
-			<li class="menuItem{if $item.name==$module->module} active{/if}"><a href="{$smarty.const.ADMIN_WWW}?module={$item.name}">{$item.name}</a></li>
+		{foreach from=$module->menu.library item=item name=m1}
+			<li class="menuItem{if $item.name==$module->module} active{/if}">
+				{if !empty($item.sub)}
+					<div class="menutitle">{$item.name}<span class="data hidden">{$smarty.foreach.m1.index}</span></div>
+					<ul class="sub" id="g_{$smarty.foreach.m1.index}">
+						{foreach from=$item.sub item=sub}
+							<li class="menuItem{if $sub.name==$module->module} active{/if}"><a href="{$smarty.const.ADMIN_WWW}?module={$sub.name}">{$sub.name}</a></li>
+						{/foreach}
+					</ul>
+				{else}
+					<a href="{$smarty.const.ADMIN_WWW}?module={$item.name}">{$item.name}</a>
+				{/if}
+			</li>
 		{/foreach}
 	</ul>
 	
@@ -50,6 +61,71 @@
 			</li>
 		{/foreach}
 	</ul>
+	{literal}
+	<script>
+		(function(){
+			
+			jQuery('.menutitle').click(function(){
+				toggleItem(jQuery('.data', jQuery(this)).text());
+			});
+
+			function toggleItem(id)
+			{
+				var el = jQuery('#g_'+id);
+				if(!el) { return; }
+				if(jQuery(el).css('display') == 'none')
+				{
+					jQuery(el).css('display', 'block');	
+					addKey(id);
+				}
+				else
+				{
+					jQuery(el).css('display', 'none');
+					delKey(id);
+				}
+				loadKeys();
+			}
+
+			function addKey(id)
+			{
+				var arr = new Array();
+				if(localStorage.openedStr)
+				{
+					arr  = localStorage.openedStr.split(',');
+				}
+				arr.push(id);
+				localStorage.openedStr = arr.join(',');
+			}
+				
+			function delKey(id)
+			{
+				var arr  = localStorage.openedStr.split(',');
+				var save = new Array();
+				jQuery(arr).each(function(item){
+					if(arr[item]!=id)
+					{
+						save.push(arr[item]);
+					}
+				});
+				localStorage.openedStr = save.join(',');
+			}
+				
+			function loadKeys()
+			{
+				if(!localStorage.openedStr) { return; }
+			 	var arr = localStorage.openedStr.split(',');
+				jQuery(arr).each(function(item){
+					var el = jQuery('#g_'+arr[item]);
+					if(el) { jQuery(el).css('display', 'block'); }
+				});
+			}
+			
+			loadKeys();
+
+
+		})();
+	</script>
+	{/literal}
 </div>
 <div class="moduleContent left">
 {$module->moduleContent}

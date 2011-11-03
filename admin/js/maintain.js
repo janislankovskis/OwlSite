@@ -33,7 +33,6 @@ function resizecont()
 {
     
     wh = jQuery(window).width() - jQuery('.menuContainer').width() - 50; //50 = paddings, borders	
-    console.log(wh);
     jQuery('.moduleContent, .paginatorContainer').width(wh);
     
 

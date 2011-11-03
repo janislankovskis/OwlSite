@@ -3,13 +3,13 @@
 <div  class="left groups">
 	
 	<div class="group">
-		<div class="title">Groups</div>
+		<h2>Groups</h2>
 		{foreach from=$groups item=item}
 			{include file="groupField.tpl"}
 		{/foreach}
+		<div class="bottomGroup"></div>
 	</div>
 	
-	<div class="bottomGroup"></div>
 	<div class="group">
 		<form action="{url add="mode=saveGroup" escaped=false}" method="post" onsubmit="saveGroup(); return false;" id="addGroupForm">
 			<fieldset>

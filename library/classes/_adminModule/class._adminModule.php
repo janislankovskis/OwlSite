@@ -77,7 +77,7 @@ class _adminModule
 		//get user permissions
 		$permissions = _adminUserPermission::GetPermissions();
 		
-		//library
+		//library modules
 		$fs = opendir( ADMIN_PATH . 'modules/');
 		while (false !== ($file = readdir($fs))) 
 		{
@@ -85,13 +85,34 @@ class _adminModule
 	    	{	
 	    		$x = array(
 	    			'name' => $file,
+	    			'dir' => 'admin/modules/' . $file,
 	    		);
+	    		
+	    		$modulesProperties[$file]['dir'] = ADMIN_BASE . '/modules/' . $file . '/';
+	    		if(is_dir(PATH . 'admin/modules/' . $file))
+	    		{
+	    			$chlds = array();
+	    			$fs2 = opendir( PATH . 'admin/modules/' . $file);
+	    			while(false !== ($fil2 = readdir($fs2)))
+	    			{
+	    				if(!in_array($fil2, $notFit)
+	    					&&	
+	    					is_dir(PATH . 'admin/modules/' . $file . '/' . $fil2)
+	    					)
+	    				{
+	    					$y = array('name' => $fil2, 'dir' => 'admin/modules/' . $file . '/' . $fil2);
+	    					$chlds[] = $y;
+	    					$modulesProperties[$fil2]['dir'] = 'admin/modules/' . $file . '/' . $fil2 . '/';
+	    				}
+	    			}
+	    			$x['sub'] = $chlds;
+	    		}
 	    		$menuItems['library'][] = $x;
-	    		$modulesProperties[$file]['dir'] = ADMIN_BASE . '/modules/' . $file . '/';  			
+	    				
 	    	}
 	    }
 		
-	    //project
+	    //project modules
 		$fs = opendir( PATH . 'project/adminModules/');
 		
 		while (false !== ($file = readdir($fs))) 
@@ -120,10 +141,7 @@ class _adminModule
 	    				}
 	    			}
 	    			
-	    			//$modulesProperties[$fil2]['dir'] = 'project/adminModules/' . $file . '/' . $fil2 . '/';
-	    			
 	    			$x['sub'] = $chlds;
-	    			
 	    			
 	    		}
 	    		
@@ -132,7 +150,6 @@ class _adminModule
 	    }
 	    
 	    $this->modulesProperties = $modulesProperties;
-	    
 	    return $menuItems;
 	   
 	}
