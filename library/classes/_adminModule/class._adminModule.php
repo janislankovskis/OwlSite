@@ -29,6 +29,7 @@ class _adminModule
 		
 		$this->menu = $this->GetMenu();
 		$this->module = $this->GetModule();
+
 		$this->moduleContent = $this->GetModuleContent();
 
 		return;
@@ -164,33 +165,34 @@ class _adminModule
 		
 		$prop = $this->getProperties($this->module);
 		
+		//TODO: check if exists
 		$templatePath = PATH . $prop['dir'];
 		$template = $templatePath . 'index.tpl';
 		
 		global $smarty;
-		
-		if(!file_exists($template))
-		{
-			return $this->GetInnerErrorTemplate('no template index file in <b>' . $this->module . '</b> module');	
-		}
-		
-		
 		
 		if(file_exists($templatePath . 'module.php'))
 		{
 			$smarty->template_dir[] = $templatePath;
 			include_once($templatePath . 'module.php');
 			$moduleObject = new CurrentModuleObject($this);
-			$assign = $moduleObject->assign;
+
 			$smarty->assign('module', $moduleObject);
-			$smarty->assign($assign);
-			
-			$this->assign = $assign;
+			$smarty->assign($moduleObject->assign);
+			$this->assign = $moduleObject->assign;
+		}
+
+		if(file_exists($template))
+		{
+			return $smarty->fetch($template);			
 		}
 		
+		//read heading
+		$html = $smarty->fetch ( PATH . 'library/templates/admin/header.tpl');
+		//get mainstuff  list or form
+		$html .= $smarty->fetch ( PATH . 'library/templates/admin/'.$moduleObject->view.'.tpl');
+		return $html;	
 		
-		
-		return $smarty->fetch($template);
 			
 	}
 	

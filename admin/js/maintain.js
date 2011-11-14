@@ -57,3 +57,63 @@ function resizecont()
     
 
 }
+
+(function(){
+            
+            jQuery('.menutitle').click(function(){
+                toggleItem(jQuery('.data', jQuery(this)).text());
+            });
+
+            function toggleItem(id)
+            {
+                var el = jQuery('#g_'+id);
+                if(!el) { return; }
+                if(jQuery(el).css('display') == 'none')
+                {
+                    jQuery(el).css('display', 'block'); 
+                    addKey(id);
+                }
+                else
+                {
+                    jQuery(el).css('display', 'none');
+                    delKey(id);
+                }
+                loadKeys();
+            }
+
+            function addKey(id)
+            {
+                var arr = new Array();
+                if(localStorage.openedStr)
+                {
+                    arr  = localStorage.openedStr.split(',');
+                }
+                arr.push(id);
+                localStorage.openedStr = arr.join(',');
+            }
+                
+            function delKey(id)
+            {
+                var arr  = localStorage.openedStr.split(',');
+                var save = new Array();
+                jQuery(arr).each(function(item){
+                    if(arr[item]!=id)
+                    {
+                        save.push(arr[item]);
+                    }
+                });
+                localStorage.openedStr = save.join(',');
+            }
+                
+            function loadKeys()
+            {
+                if(!localStorage.openedStr) { return; }
+                var arr = localStorage.openedStr.split(',');
+                jQuery(arr).each(function(item){
+                    var el = jQuery('#g_'+arr[item]);
+                    if(el) { jQuery(el).css('display', 'block'); }
+                });
+            }
+            loadKeys();
+
+        })();

@@ -93,6 +93,11 @@ h2
 	background-color: #FFF;
 	color: #000;
 }
+.menuContainer .active a:before
+{
+	content: "→ ";
+}
+
 
 .menuContainer .sub
 {
@@ -216,4 +221,34 @@ background: linear-gradient(top, rgba(229,229,229,1) 0%,rgba(196,196,196,1) 100%
     
     font-size: 118.181818182%;
     
+}
+
+.heading h1
+{
+	margin-top: 5px;
+}
+
+.heading .addButton
+{
+	display: inline-block;
+	text-decoration: none;
+	color: #666;
+	font-size: 92%;
+	padding: 4px 8px;	
+	margin-left: 20px;
+	background-color: #fafafa;
+	border-radius: 5px;	
+}
+.heading .addButton:hover{ background-color: #85BA2E; color: #FFF; }
+
+.heading .listButton
+{
+	font-size: 92%;
+	margin-left: 20px;
+	color: #666;
+}
+
+.heading .searchForm
+{
+	padding-top: 7px;
 }

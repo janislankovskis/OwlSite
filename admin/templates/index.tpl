@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8" />
+<meta name="author" content="OwlSite // github.com/janislankovskis/OwlSite/">
 <link rel="stylesheet" href="style/style.css" type="text/css" />
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-<title>OWLSite - {tra item=siteTitle group=site}</title>
+<title>OwlSite - {tra item=siteTitle group=site}</title>
 {foreach from=$module->assign.css item=item}
 <link rel="stylesheet" href="{$item}" type="text/css" />
 {/foreach}
@@ -61,71 +61,6 @@
 			</li>
 		{/foreach}
 	</ul>
-	{literal}
-	<script>
-		(function(){
-			
-			jQuery('.menutitle').click(function(){
-				toggleItem(jQuery('.data', jQuery(this)).text());
-			});
-
-			function toggleItem(id)
-			{
-				var el = jQuery('#g_'+id);
-				if(!el) { return; }
-				if(jQuery(el).css('display') == 'none')
-				{
-					jQuery(el).css('display', 'block');	
-					addKey(id);
-				}
-				else
-				{
-					jQuery(el).css('display', 'none');
-					delKey(id);
-				}
-				loadKeys();
-			}
-
-			function addKey(id)
-			{
-				var arr = new Array();
-				if(localStorage.openedStr)
-				{
-					arr  = localStorage.openedStr.split(',');
-				}
-				arr.push(id);
-				localStorage.openedStr = arr.join(',');
-			}
-				
-			function delKey(id)
-			{
-				var arr  = localStorage.openedStr.split(',');
-				var save = new Array();
-				jQuery(arr).each(function(item){
-					if(arr[item]!=id)
-					{
-						save.push(arr[item]);
-					}
-				});
-				localStorage.openedStr = save.join(',');
-			}
-				
-			function loadKeys()
-			{
-				if(!localStorage.openedStr) { return; }
-			 	var arr = localStorage.openedStr.split(',');
-				jQuery(arr).each(function(item){
-					var el = jQuery('#g_'+arr[item]);
-					if(el) { jQuery(el).css('display', 'block'); }
-				});
-			}
-			
-			loadKeys();
-
-
-		})();
-	</script>
-	{/literal}
 </div>
 <div class="moduleContent left">
 {$module->moduleContent}

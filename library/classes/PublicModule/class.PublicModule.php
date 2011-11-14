@@ -151,6 +151,7 @@ class PublicModule
 			if(sizeof($this->urlParts) || !$this->openedObject)
 			{
 				$this->template = '404';
+
 			}
 		}
 		
@@ -194,18 +195,17 @@ class PublicModule
 			$smarty->assign('mainMenu', $this->getMenu());
 			$smarty->assign('opened', $this->openedObject);
 			$smarty->assign($this->openedObject->fetchData());
-		
-		if(file_exists($path . $this->openedObject->template . '.php'))
-		{
-			include_once($path . $this->openedObject->template . '.php');
-			$module = new Module($this);
-			if(isset($module->pageTitle) && is_array($module->pageTitle))
+			if(file_exists($path . $this->openedObject->template . '.php'))
 			{
-                $this->title = array_merge($this->title, $module->pageTitle);
+				include_once($path . $this->openedObject->template . '.php');
+				$module = new Module($this);
+				if(isset($module->pageTitle) && is_array($module->pageTitle))
+				{
+	                $this->title = array_merge($this->title, $module->pageTitle);
+				}
+				$this->title = array_reverse($this->title);
 			}
-			$this->title = array_reverse($this->title);
-		}
-        
+	        
 		//project data
 		if(file_exists($path . '_project.php'))
 		{	
@@ -360,7 +360,6 @@ class PublicModule
 	{
 		$name = sha1($this->cssStringName);
 		$full_path = CACHE_PATH . 'css/' . $name . '.css';
-		
 		if(!file_exists($full_path))
 		{
 			/* remove comments */
@@ -369,11 +368,18 @@ class PublicModule
     		$this->cssString = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $this->cssString);
 			file_put_contents($full_path, $this->cssString);
 		}
-		$this->css[] = WWW . 'cache/css/' .$name . '.css';
-		
+		if($this->css == null) /*TODO: why this happens on 404 pages? */
+		{
+			$this->css = array(WWW . 'cache/css/' .$name . '.css');	
+		}
+		else
+		{
+			$this->css[] = WWW . 'cache/css/' .$name . '.css';
+		}
 		return $this->css;
 	}
-	
+
+
 	public function GetJs()
 	{
 		return $this->js;

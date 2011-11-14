@@ -101,11 +101,17 @@ class DefaultAdminModule
 		
 		$params['limit'] = ($page-1)*$this->itemsPerPage .  ', ' . $this->itemsPerPage;
 		$this->assign['list'] = $obj->getList($params);
+
+		if(isset($_GET['_search'])) // admin specific
+		{
+			$params['_search'] = $_GET['_search'];
+		}
 		
 		$pages = array(
 			'total' => ceil($obj->getCount($params)/$this->itemsPerPage),
 			'current' => $page, 
 		);
+
 		
 		$this->assign['pages'] = $this->getPagedNavigationHtml($pages);
 		$this->assign['object'] = $obj; //blank object
@@ -247,6 +253,14 @@ class DefaultAdminModule
 
 		//return get_included_files();
 	}
+
+	public function getSearch()
+	{
+		global $smarty;
+		return $smarty->fetch( PATH . 'library/templates/admin/search.tpl');
+	}
+
+
 
 
 

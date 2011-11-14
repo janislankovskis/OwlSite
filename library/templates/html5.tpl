@@ -19,7 +19,6 @@
 {foreach from=$module->GetCss() item=css}
 <link rel="stylesheet" href="{$css}" />
 {/foreach}
-<script src="{$smarty.const.BASE}library/3rdpart/modernizr/modernizr.custom.05612.js"></script>
 </head>
 <body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>

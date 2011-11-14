@@ -29,6 +29,11 @@ html, body, form, ul, li, ol, p, h1, h2, h3, h4
 	clear: both;
 }
 
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
 
 a img
 {

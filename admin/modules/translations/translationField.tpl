@@ -5,7 +5,7 @@
 		<input type="hidden" name="group" value="{$item.group}"/>
 			<div class="field left">Ident: <input type="text" name="ident" value="{$item.ident|escape}" /></div>
 			{foreach from=$languages item=x}
-				<div class="field left">{$x}: <input type="text" name="values[]" value="{$item.values.$x|escape}" /></div>
+				<div class="field left clearfix"><span class="left">{$x}:</span><textarea cols="10" rows="1" name="values[]">{$item.values.$x|escape}</textarea></div>
 			{/foreach}
 			<div class="left"><button type="submit">Save</button></div>
 			<div class="clear"></div>

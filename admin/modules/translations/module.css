@@ -62,8 +62,34 @@ h1
 {
 	padding-right: 10px;
 }
+.translations .item
+{
+	padding: 5px;
+	margin-bottom: 6px;
+}
+
+.translations .item:hover
+{
+	background-color: #fafafa;
+}
 
 h2
 {
 
+}
+
+.translations textarea
+{
+	width: 160px;
+	height: 11px;
+	float: left;
+	margin-left: 5px;
+	font-size: 64%;
+	overflow-y: hidden;
+}
+.translations .item textarea:focus
+{
+	height: 80px;
+	margin-bottom: 10px;
+	overflow-y: auto;
 }

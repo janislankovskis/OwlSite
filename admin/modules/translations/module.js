@@ -45,7 +45,6 @@ function deleteGroup(id, name)
 	
 	
 	return false;
-
 }
 
 
@@ -56,7 +55,7 @@ function save(form)
 	var group = jQuery(form).find('input[name=group]').val();
 	var id = jQuery(form).find('input[name=id]').val();
 	var values = '';
-	jQuery("input[name=values[]]", form).each(function(){
+	jQuery("textarea[name=values[]]", form).each(function(){
 		values = values+'&values[]='+jQuery(this).val();
 	});
 	
@@ -72,19 +71,17 @@ function save(form)
 		data: data,
 		url: url,
 		success: function(out){
-			console.log(out);
 			jQuery(out).insertBefore('.bottomTranslation');
-			
+			jQuery(".trid"+id).css("background-color", "#AFA");
+			setTimeout('jQuery(".trid'+id+'").css("background-color", "#FFFFFF")', 1600);
 			if(!id)
 			{
-				jQuery("input[type=text]", form).each(function(){
+				jQuery("textarea, input[type=text]", form).each(function(){
 					jQuery(this).val("");
 				});
 			}
-			
 		}
 	});
-	
 	
 	return false;
 }

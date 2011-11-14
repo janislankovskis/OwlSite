@@ -37,7 +37,7 @@ class O_Model
 	
 	public $presave, $postsave; //pre & podt save actions
 
-	public $presaveO, $postsaveO; //pre & podt save actions	 V2
+	public $presaveO, $postsaveO; //pre & post save actions	 V2
 
 	public $cleanup; 
 	
@@ -80,7 +80,7 @@ class O_Model
 			{	
 				$obname = $this->fields[$name]['objectName'];
 				return $obname::LoadObject($this->$name);
-			}		
+			}		 
 			
 		}
 		
@@ -292,14 +292,14 @@ class O_Model
 		
 	}
 	
-	function generateFileName($name)
+	public function generateFileName($name)
 	{
     	$sufix = $this->getSufix($name);
     	$newname = date('YmdHis') . '-' . rand(1000, 9999) . $sufix;
     	return $newname;
 	}
     
-	function getSufix($name)
+	public function getSufix($name)
 	{
    		return strtolower(substr($name, strrpos($name,'.')));
 	}
@@ -655,23 +655,19 @@ class O_Model
 	
 	public function getCount($params)
     {
-
-        //return false;
-        $parts = $this->getList($params, true);  
+    	$parts = $this->getList($params, true);  
         if(isset($parts['limit']))
         {
             unset($parts['limit']);
         }
-        
         $parts['select'] = 'count(*) AS count';
-        unset($parts['leftJoin'], $parts['where']); 
+        //unset($parts['leftJoin'], $parts['where']); 
         //debug($parts);
-        
-       $result = returnFirstRow($parts);
-	   if($result)
-	   {
+       	$result = returnFirstRow($parts);
+	   	if($result)
+	   	{
 	       return $result['count'];
-	   }
+	   	}
 	   
 	   return false;
 	}
@@ -1007,6 +1003,18 @@ class O_Model
 		
 		
 		dbReplace($data, $this->tableName);
+
+		//update ID
+		//$r = dbExecute('SELECT max(id) as id from ' . $this->tableName);
+		//$this->id = $r[0]['id'];
+		
+		//check postsave
+		//if(isset($this->postsaveO))
+		//{
+		//	call_user_func(array($this, $this->postsaveO));
+		//}
+		
+
 		
 	}
 	

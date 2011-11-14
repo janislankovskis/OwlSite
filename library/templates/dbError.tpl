@@ -8,7 +8,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	</head>
 	<body>
-		Error connecting to database.
+		<h1>Error connecting to database</h1>
+		<h3>This might be because:</h3>
+		<ul>
+			<li>There is server-related error, or</li>
+			<li>there is configuration (db-hostname, db-user, password) error.</li>
+		</ul>		
 	</body>
 
 </html>

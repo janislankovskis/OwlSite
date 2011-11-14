@@ -9,7 +9,13 @@ if(!$connect)
 	exit(file_get_contents( PATH . 'library/templates/dbError.tpl'));
 }
 
-mysql_select_db($project['db_name'], $connect);
+$selected = mysql_select_db($project['db_name'], $connect); 
+if(!$selected)
+{
+	exit(file_get_contents( PATH . 'library/templates/dbError.tpl'));
+}
+
+//mysql_error($connect);
 
 if($conf['SETNAMESUTF8'])
 {

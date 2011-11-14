@@ -35,7 +35,7 @@
 			<legend>Add New Translation</legend>
 			<div class="field left">Ident: <input type="text" name="ident" id="newGroup" /></div>
 			{foreach from=$languages item=x}
-				<div class="field left">{$x}: <input type="text" name="values[]" /></div>
+				<div class="field left clearfix"><span class="left">{$x}:</span> <textarea name="values[]" cols="10" rows="1"/></textarea></div>
 			{/foreach}
 			<div class="left"><button type="submit">Save</button></div>
 			<div class="clear"></div>
