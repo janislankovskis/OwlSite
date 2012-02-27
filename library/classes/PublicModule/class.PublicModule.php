@@ -77,7 +77,7 @@ class PublicModule
 	{
 		$params = array('active' => 1, 'limit' => 1, 'parent'=>0);
 		$obj = new Object;
-		
+
 		if(empty($_GET['rewrite'])) //get first object
 		{
 			$list = $obj->getList($params);
@@ -87,6 +87,10 @@ class PublicModule
 				$this->title[] = $this->openedObject->name;
 				$this->objects[] = $list[0];
 				$this->metaDescription = $this->openedObject->alt_description;
+				if($this->openedObject->template == 'language')
+				{
+					$this->language = strtolower($this->openedObject->name);
+				}
 			}
 			else
 			{
@@ -112,6 +116,7 @@ class PublicModule
 					$this->objects[] = $object;
 					unset($this->urlParts[$key]);
 					$this->openedObject = $object;
+					
 					if($object->template == 'language')
 					{
 						$this->language = strtolower($object->name);
@@ -128,6 +133,7 @@ class PublicModule
 				}
 				
 			}
+
 			if(!$this->openedObject)
 			{
     			//try first
@@ -144,7 +150,8 @@ class PublicModule
             elseif(sizeof($this->urlParts))
             {
                 //$this->title[] = $this->openedObject->name;
-                $this->content();
+                $this->content(); // <----------------------------------------------------------------------------bookmark
+                //debug($this);
             }
             
             
@@ -154,8 +161,7 @@ class PublicModule
 
 			}
 		}
-		
-		
+
 		if($this->openedObject)
 		{
 			$this->openedObject->loadValues();
@@ -176,11 +182,12 @@ class PublicModule
 
 	public function content()
 	{
-		global $smarty;
 		
+		global $smarty;
+
 		if($this->contentLoaded)
 		{
-		  return;
+		   return;
 		}
 		
 		$this->getTranslations();
@@ -189,12 +196,17 @@ class PublicModule
 		
 		$path = PATH . 'project/templates/';
 		
+		
+		
 		if($this->openedObject && $this->template!='404')
 		{
-			$smarty->assign('languages', $this->languages);
+				
+			$smarty->assign('languages', $this->getLanguages() );//<0000000000000000000--------------------------
 			$smarty->assign('mainMenu', $this->getMenu());
 			$smarty->assign('opened', $this->openedObject);
+			
 			$smarty->assign($this->openedObject->fetchData());
+
 			if(file_exists($path . $this->openedObject->template . '.php'))
 			{
 				include_once($path . $this->openedObject->template . '.php');
@@ -215,25 +227,24 @@ class PublicModule
 				$module = null;
 			}
 			new Frame($module, $this);
-			
 			$smarty->assign($module->assign);
 		}
 		
 		
 		//css
 		global $project;
-		if(isset($project['css']) && is_array($project['css']))
-		{
-			foreach($project['css'] as $css)
+			if(isset($project['css']) && is_array($project['css']))
 			{
-				$this->_add_css(BASE . $css);	
+				foreach($project['css'] as $css)
+				{
+					$this->_add_css(BASE . $css);	
+				}
 			}
-		}
 
-		if(file_exists($path . $this->openedObject->template . '.css'))
-		{
-			$this->_add_css( BASE . 'project/templates/' . $this->openedObject->template . '.css');
-		}
+			if(file_exists($path . $this->openedObject->template . '.css'))
+			{
+				$this->_add_css( BASE . 'project/templates/' . $this->openedObject->template . '.css');
+			}
 			
 			if(file_exists($path . $this->openedObject->template . '.js'))
 			{
@@ -257,9 +268,15 @@ class PublicModule
 		{
 			$template =  $this->openedObject->template . '.tpl';
 		}
+
+		//debug($this);
 		
+		//$smarty->assign('languages', array());
+		//
+
 		$this->html = $smarty->fetch($path . $template);
 		$this->contentLoaded = true;
+
 	}
 	
 	public function getLanguages($active=false)
@@ -285,11 +302,17 @@ class PublicModule
 			if(in_array($item->id, $ids))
 			{
 				$list[$key]->opened=true;
+				if(!defined('CURRENT_LANGUAGE')){
+					define('CURRENT_LANGUAGE', strtolower($list[$key]->name));
+				}
 			}
 		}
 		
+
+
 		$this->languages = $list;
-		
+		return $list;
+
 	}
 	
 	public function getMenu($root=0)
@@ -435,7 +458,7 @@ class PublicModule
 		
 		return true;
 	}
-	
+
 
 }
 

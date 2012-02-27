@@ -86,12 +86,12 @@ if(!empty($_POST) && isset($_FILES['image']['error']) && $_FILES['image']['error
 	
 }
 
-function generateFileName($name)
-{
-    $sufix = getSufix($name);
-    $newname = time() . '-' . rand(1000, 9999) . $sufix;
-    return $newname;
-}
+// function generateFileName($name)
+// {
+//     $sufix = getSufix($name);
+//     $newname = time() . '-' . rand(1000, 9999) . $sufix;
+//     return $newname;
+// }
     
     
 function getSufix($name)

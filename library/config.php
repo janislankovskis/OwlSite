@@ -21,7 +21,7 @@ $conf['INCLUDE_PATHS'] = array(
 	$conf['PATH'] . 'project/classes/',
 );
 
-$conf['DEV_IP'] = array('::1', '127.0.0.1', '78.84.181.21');
+$conf['DEV_IP'] = array('::1', '127.0.0.1', '78.84.178.118');
 
 $conf['SETNAMESUTF8'] = true;
 $conf['CACHEQUERIES'] = true;

@@ -24,7 +24,9 @@
 		relative_urls : false ,
         remove_script_host : false,
 		 
-        content_css : "{/literal}{$smarty.const.BASE}project/templates/textstyles.css{literal}"
+        content_css : "{/literal}{$smarty.const.BASE}project/templates/textstyles.css{literal}",
+
+        extended_valid_elements: "iframe[align<bottom?left?middle?right?top|class|frameborder|height|id|longdesc|marginheight|marginwidth|name|scrolling<auto?no?yes|src|style|title|width]"
          
 });
 	
