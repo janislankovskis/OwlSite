@@ -115,7 +115,7 @@ h2
 
 .menuContainer .menutitle
 {
-	margin-top: 10px;
+	margin: 10px 0;
 	padding-left: 15px;
 	font-style: italic;
 	cursor: pointer;

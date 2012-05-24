@@ -45,12 +45,12 @@
 		{/foreach}
 	</ul>
 	
-	<ul id="menu2">
-		{foreach from=$module->menu.project item=item}
+	<ul id="menu" class="menuBlock">
+		{foreach from=$module->menu.project item=item name=m2}
 			<li class="menuItem{if $item.name==$module->module} active{/if}">
 				{if !empty($item.sub)}
-					<div class="menutitle">{$item.name|strtoupper}</div>
-					<ul class="sub">
+					<div class="menutitle">{$item.name}<span class="data hidden">2_{$smarty.foreach.m2.index}</span></div>
+					<ul class="sub" id="g_2_{$smarty.foreach.m2.index}">
 						{foreach from=$item.sub item=sub}
 							<li class="menuItem{if $sub.name==$module->module} active{/if}"><a href="{$smarty.const.ADMIN_WWW}?module={$sub.name}">{$sub.name}</a></li>
 						{/foreach}

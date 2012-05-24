@@ -662,6 +662,14 @@ class Object extends O_Model
 		$params = array_merge($params, $params2);
 		return $this->getList($params);
 	}
+	
+	public function getVisibleChildren(){
+		$params = array(
+				'parent' => $this->id,
+				'active' => true,
+			);
+		return $this->getList($params);	
+	}
 
 }
 
